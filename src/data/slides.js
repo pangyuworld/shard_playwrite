@@ -75,6 +75,34 @@ test(<span class="code-string">'test'</span>, <span class="code-keyword">async</
   <span class="code-keyword">await</span> expect(page.getByText(<span class="code-string">'Welcome'</span>)).toBeVisible();
 });`
   },
+  // 4.5 Dev 痛点解决方案
+  {
+    id: 'dev-solution',
+    type: 'code-demo',
+    title: 'Dev 痛点击破：回归 & 造数',
+    tag: 'For Dev',
+    desc: '改了一行代码不敢上线？QA 追着你要测试数据？Playwright 帮你搞定。',
+    concept: 'API 混合模式 + CI 集成。利用 API RequestContext 毫秒级造数据，集成流水线实现“提交即回归”。',
+    filename: 'auto_regression.ts',
+    code: `<span class="code-keyword">import</span> { test, expect } <span class="code-keyword">from</span> <span class="code-string">'@playwright/test'</span>;
+
+test(<span class="code-string">'新功能回归测试'</span>, <span class="code-keyword">async</span> ({ page, request }) => {
+  <span class="code-comment">// 🚀 痛点解决 1: 极速造数据 (无需手动操作数据库/UI)</span>
+  <span class="code-comment">// 直接调用 API 创建订单，比 UI 操作快 100 倍</span>
+  <span class="code-keyword">const</span> res = <span class="code-keyword">await</span> request.post(<span class="code-string">'/api/create-order'</span>, {
+    data: { product: <span class="code-string">'iPhone 15'</span>, qty: <span class="code-number">1</span> }
+  });
+  <span class="code-keyword">const</span> order = <span class="code-keyword">await</span> res.json();
+
+  <span class="code-comment">// 🚀 痛点解决 2: 自动回归</span>
+  <span class="code-comment">// 拿着造好的数据，直接开始 UI 验证</span>
+  <span class="code-keyword">await</span> page.goto(<span class="code-string">\`/orders/\${order.id}\`</span>);
+  <span class="code-keyword">await</span> expect(page.getByText(<span class="code-string">'待支付'</span>)).toBeVisible();
+  
+  <span class="code-comment">// 💡 这一切都在 CI 流水线中自动运行！</span>
+  <span class="code-comment">// git push -> 自动触发测试 -> 邮件接收报告</span>
+});`
+  },
   // 5. Flaky Tests 解决方案
   {
     id: 'demo-flaky',
