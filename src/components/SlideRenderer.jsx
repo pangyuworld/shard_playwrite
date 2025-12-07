@@ -1,0 +1,188 @@
+import React from 'react';
+    import { motion } from 'framer-motion';
+    import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+    const containerVariants = {
+      hidden: { opacity: 0, x: 50 },
+      visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeOut" } },
+      exit: { opacity: 0, x: -50, transition: { duration: 0.3 } }
+    };
+
+    const itemVariants = {
+      hidden: { opacity: 0, y: 20 },
+      visible: { opacity: 1, y: 0 }
+    };
+
+    // 封面组件
+    const CoverSlide = ({ data }) => (
+      <div className="flex flex-col items-center justify-center h-full text-center px-8">
+        <motion.div 
+          initial={{ scale: 0 }} 
+          animate={{ scale: 1 }} 
+          transition={{ type: "spring", stiffness: 260, damping: 20 }}
+          className="mb-8 text-brand-primary text-8xl"
+        >
+          <FontAwesomeIcon icon={data.icon} />
+        </motion.div>
+        <h1 className="text-5xl md:text-6xl font-bold mb-4 text-white tracking-tight">
+          {data.title}
+        </h1>
+        <h2 className="text-4xl md:text-5xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-accent">
+          {data.highlight}
+        </h2>
+        <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl">
+          {data.subtitle}
+        </p>
+        <div className="mt-auto mb-8 text-gray-500 font-medium tracking-widest uppercase text-sm">
+          {data.footer}
+        </div>
+      </div>
+    );
+
+    // 列表内容组件
+    const ContentListSlide = ({ data }) => (
+      <div className="h-full flex flex-col justify-center px-12 md:px-24">
+        <h2 className="text-4xl font-bold mb-2 text-white">{data.title}</h2>
+        <p className="text-xl text-brand-primary mb-12">{data.subtitle}</p>
+        <div className="space-y-8">
+          {data.items.map((item, index) => (
+            <motion.div 
+              key={index}
+              variants={itemVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: index * 0.2 }}
+              className="flex items-start bg-white/5 p-6 rounded-xl border border-white/10 hover:border-brand-primary/50 transition-colors"
+            >
+              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary text-xl mr-6">
+                <FontAwesomeIcon icon={item.icon} />
+              </div>
+              <div>
+                <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-brand-accent/20 text-brand-accent mb-2">
+                  {item.role}
+                </span>
+                <p className="text-lg text-gray-200 leading-relaxed">{item.text}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    );
+
+    // 左右分栏组件
+    const SplitSlide = ({ data }) => (
+      <div className="h-full flex flex-col md:flex-row items-center px-12 md:px-24 gap-12">
+        <div className="flex-1">
+          <h2 className="text-4xl font-bold mb-8 text-white">{data.title}</h2>
+          <h3 className="text-2xl font-semibold text-brand-primary mb-4">{data.leftContent.heading}</h3>
+          <p className="text-lg text-gray-300 leading-relaxed mb-8">
+            {data.leftContent.text}
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {data.leftContent.tags.map((tag, i) => (
+              <span key={i} className="px-4 py-2 bg-white/10 rounded-lg text-sm font-medium text-white">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="flex-1 w-full">
+          <div className="bg-gradient-to-br from-brand-primary/20 to-brand-accent/20 p-8 rounded-2xl border border-white/10 backdrop-blur-sm">
+            <div className="text-center mb-8">
+              <FontAwesomeIcon icon={data.rightContent.icon} className="text-6xl text-white/80" />
+            </div>
+            <div className="grid grid-cols-1 gap-4">
+              {data.rightContent.stats.map((stat, i) => (
+                <div key={i} className="flex justify-between items-center bg-brand-dark/50 p-4 rounded-lg">
+                  <span className="text-gray-400">{stat.label}</span>
+                  <span className="text-xl font-bold text-white">{stat.value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    // 卡片组件
+    const CardsSlide = ({ data }) => (
+      <div className="h-full flex flex-col justify-center px-12 md:px-24">
+        <h2 className="text-4xl font-bold mb-12 text-center text-white">{data.title}</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {data.cards.map((card, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: index * 0.2 }}
+              className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:bg-white/10 transition-all group"
+            >
+              <div className={`w-14 h-14 rounded-xl ${card.color} flex items-center justify-center text-white text-2xl mb-6 shadow-lg group-hover:scale-110 transition-transform`}>
+                <FontAwesomeIcon icon={card.icon} />
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-4">{card.title}</h3>
+              <p className="text-gray-400 leading-relaxed">
+                {card.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    );
+
+    // 特性网格组件
+    const FeatureGridSlide = ({ data }) => (
+      <div className="h-full flex flex-col justify-center px-12 md:px-24">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold mb-2 text-white">{data.title}</h2>
+          <p className="text-xl text-brand-accent">{data.subtitle}</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {data.features.map((feature, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: index * 0.1 }}
+              className="flex items-start p-6 bg-gradient-to-r from-white/5 to-transparent rounded-xl border-l-4 border-brand-primary"
+            >
+              <div className="text-brand-primary text-2xl mr-4 mt-1">
+                <FontAwesomeIcon icon={feature.icon} />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
+                <p className="text-gray-400">{feature.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    );
+
+    export const SlideRenderer = ({ slide }) => {
+      const renderContent = () => {
+        switch (slide.type) {
+          case 'cover': return <CoverSlide data={slide} />;
+          case 'content-list': return <ContentListSlide data={slide} />;
+          case 'split': return <SplitSlide data={slide} />;
+          case 'cards': return <CardsSlide data={slide} />;
+          case 'feature-grid': return <FeatureGridSlide data={slide} />;
+          default: return <div className="text-white">Unknown Slide Type</div>;
+        }
+      };
+
+      return (
+        <motion.div
+          key={slide.id}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="w-full h-full max-w-7xl mx-auto"
+        >
+          {renderContent()}
+        </motion.div>
+      );
+    };
