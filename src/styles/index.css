@@ -20,6 +20,45 @@
       background: #475569;
       border-radius: 4px;
     }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #64748b;
-    }
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Code Syntax Highlighting Simulation */
+.code-keyword { color: #c678dd; }
+.code-function { color: #61afef; }
+.code-string { color: #98c379; }
+.code-comment { color: #5c6370; font-style: italic; }
+.code-operator { color: #56b6c2; }
+.code-number { color: #d19a66; }
+
+/* Visual Comparison Slider */
+.compare-container {
+  position: relative;
+  user-select: none;
+}
+.compare-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow: hidden;
+  border-right: 2px solid #fff;
+  background-color: #1e293b; /* Match bg */
+}
+.slider-handle {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  cursor: ew-resize;
+  z-index: 10;
+}
