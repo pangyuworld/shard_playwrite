@@ -179,7 +179,7 @@ test(<span class="code-string">'test'</span>, <span class="code-keyword">async</
   {
     id: 'demo-flaky',
     type: 'code-demo',
-    section: 'Part 3: 核心工具链',
+    section: 'Part 2: 快速上手',
     title: '核心机制：告别 Flaky Tests',
     tag: 'Stability',
     desc: '以前我们需要写大量的 sleep(5000) 来等待页面加载，现在 Playwright 内置了智能等待机制。',
