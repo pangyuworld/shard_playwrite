@@ -1,4 +1,4 @@
-import { faCode, faBug, faChartLine, faRocket, faRobot, faLayerGroup, faCheckCircle, faBolt, faUsers, faVideo, faEye, faNetworkWired } from '@fortawesome/free-solid-svg-icons';
+import { faCode, faBug, faChartLine, faRocket, faRobot, faLayerGroup, faCheckCircle, faBolt, faUsers, faVideo, faEye, faNetworkWired, faListUl } from '@fortawesome/free-solid-svg-icons';
 
 export const slides = [
   // 1. 封面
@@ -10,6 +10,19 @@ export const slides = [
     subtitle: '想让自动化测试不再是 QA 专属？Playwright 来了！',
     footer: '打破角色壁垒 · 全链路提升协作速度',
     icon: faRocket
+  },
+  // 1.5 会议大纲
+  {
+    id: 'agenda',
+    type: 'content-list',
+    title: '本次分享大纲',
+    subtitle: '从入门到精通的效率之旅',
+    items: [
+      { icon: faLayerGroup, role: 'Overview', text: '为什么选择 Playwright？痛点与核心价值' },
+      { icon: faBolt, role: 'Start', text: '快速上手：一键初始化与项目结构' },
+      { icon: faCode, role: 'Demo', text: '核心功能实战：Codegen、调试与 Trace' },
+      { icon: faRocket, role: 'Advanced', text: '进阶场景：Mock、视觉回归与 CI/CD' }
+    ]
   },
   // 2. 痛点
   {
@@ -48,6 +61,27 @@ export const slides = [
         color: 'bg-purple-500'
       }
     ]
+  },
+  // 3.5 初始化项目
+  {
+    id: 'init-project',
+    type: 'code-demo',
+    title: '快速开始：一键初始化',
+    tag: 'Setup',
+    desc: '无需繁琐配置，一行命令搞定所有环境依赖。',
+    concept: 'Scaffolding。自动创建配置文件、安装浏览器驱动、生成示例测试。',
+    filename: 'Terminal',
+    code: `<span class="code-comment"># 1. 初始化项目</span>
+<span class="code-function">npm</span> init playwright@latest
+
+<span class="code-comment"># 2. 交互式配置</span>
+<span class="code-string">✔</span> Do you want to use TypeScript or JavaScript? · <span class="code-keyword">TypeScript</span>
+<span class="code-string">✔</span> Where to put your end-to-end tests? · <span class="code-string">tests</span>
+<span class="code-string">✔</span> Add a GitHub Actions workflow? · <span class="code-keyword">true</span>
+<span class="code-string">✔</span> Install Playwright browsers? · <span class="code-keyword">true</span>
+
+<span class="code-comment"># 3. 运行测试</span>
+<span class="code-function">npx</span> playwright test`
   },
   // 4. Codegen 演示
   {
