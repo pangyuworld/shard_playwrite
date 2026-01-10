@@ -390,10 +390,10 @@ const MockDemoSlide = ({ data }) => {
   );
 };
 
-export const SlideRenderer = ({ slide }) => {
-  const renderContent = () => {
-    switch (slide.type) {
-      case 'cover': return <CoverSlide data={slide} />;
+    export const SlideRenderer = ({ slide }) => {
+      const renderContent = () => {
+        switch (slide.type) {
+          case 'cover': return <CoverSlide data={slide} />;
       case 'content-list': return <ContentListSlide data={slide} />;
       case 'split': return <SplitSlide data={slide} />;
       case 'cards': return <CardsSlide data={slide} />;
@@ -405,16 +405,25 @@ export const SlideRenderer = ({ slide }) => {
     }
   };
 
-  return (
-    <motion.div
-      key={slide.id}
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      className="w-full h-full max-w-7xl mx-auto"
-    >
-      {renderContent()}
-    </motion.div>
-  );
-};
+      return (
+        <motion.div
+          key={slide.id}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="w-full h-full max-w-7xl mx-auto relative"
+        >
+          {/* 模块导航标签 */}
+          {slide.section && (
+            <div className="absolute top-0 left-8 md:left-24 py-2 px-6 bg-white/5 backdrop-blur-md rounded-b-xl border-x border-b border-white/10 z-20 shadow-lg">
+              <span className="text-brand-primary font-bold text-sm tracking-widest uppercase flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-brand-primary"></span>
+                {slide.section}
+              </span>
+            </div>
+          )}
+          {renderContent()}
+        </motion.div>
+      );
+    };

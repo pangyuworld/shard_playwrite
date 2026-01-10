@@ -18,16 +18,17 @@ export const slides = [
     title: '本次分享大纲',
     subtitle: '从入门到精通的效率之旅',
     items: [
-      { icon: faLayerGroup, role: 'Intro', text: 'Playwright 简介：痛点与核心价值' },
-      { icon: faBolt, role: 'Setup', text: '快速上手：初始化项目与核心对象模型' },
-      { icon: faCode, role: 'Tools', text: '核心工具链：Codegen、Trace Viewer 与调试' },
-      { icon: faRocket, role: 'Advanced', text: '进阶场景：Mock、视觉回归与 CI/CD' }
+      { icon: faLayerGroup, role: 'Part 1', text: 'Playwright 简介：定义、痛点与核心价值' },
+      { icon: faBolt, role: 'Part 2', text: '快速上手：初始化项目与核心对象模型' },
+      { icon: faCode, role: 'Part 3', text: '核心工具链：Codegen、Trace Viewer 与调试' },
+      { icon: faRocket, role: 'Part 4', text: '进阶场景：Mock、视觉回归与 CI/CD' }
     ]
   },
   // 2. 痛点
   {
     id: 'intro-pain',
     type: 'content-list',
+    section: 'Part 1: Playwright 简介',
     title: '为什么要懂 Playwright？',
     subtitle: '痛点共鸣：那些让我们头秃的“重复活”',
     items: [
@@ -36,10 +37,32 @@ export const slides = [
       { icon: faChartLine, role: 'PO', text: '想看产品验收结果，只能等口头汇报或复杂的 Excel，没有直观感受？' }
     ]
   },
+  // 2.5 Playwright 介绍 (新增)
+  {
+    id: 'intro-definition',
+    type: 'split',
+    section: 'Part 1: Playwright 简介',
+    title: '什么是 Playwright？',
+    leftContent: {
+      heading: '微软开源的新一代自动化测试工具',
+      text: 'Playwright 是一个用于 Web 测试和自动化的框架，专为现代 Web 应用而生。它允许通过单个 API 自动执行 Chromium、Firefox 和 WebKit，支持无头（Headless）和有头（Headed）模式。',
+      tags: ['跨浏览器', '跨平台', '多语言支持 (JS/TS/Py/Java/C#)', '速度极快']
+    },
+    rightContent: {
+      icon: faRobot,
+      stats: [
+        { label: 'GitHub Stars', value: '60k+' },
+        { label: 'NPM Downloads', value: '5M+/week' },
+        { label: '更新频率', value: '每2周' },
+        { label: '维护者', value: 'Microsoft' }
+      ]
+    }
+  },
   // 3. 核心价值概览
   {
     id: 'core-value',
     type: 'cards',
+    section: 'Part 1: Playwright 简介',
     title: '核心价值：打破壁垒',
     cards: [
       { 
@@ -66,6 +89,7 @@ export const slides = [
   {
     id: 'init-project',
     type: 'code-demo',
+    section: 'Part 2: 快速上手',
     title: '快速开始：一键初始化',
     tag: 'Setup',
     desc: '无需繁琐配置，一行命令搞定所有环境依赖。',
@@ -87,6 +111,7 @@ export const slides = [
   {
     id: 'core-concepts',
     type: 'cards',
+    section: 'Part 2: 快速上手',
     title: '核心对象模型',
     cards: [
       { 
@@ -113,6 +138,7 @@ export const slides = [
   {
     id: 'demo-codegen',
     type: 'code-demo',
+    section: 'Part 3: 核心工具链',
     title: '核心工具一：Codegen 录制',
     tag: 'For Dev & QA',
     desc: '不想写代码？没关系！打开浏览器点点点，Playwright 自动帮你生成代码。',
@@ -139,6 +165,7 @@ test(<span class="code-string">'test'</span>, <span class="code-keyword">async</
   {
     id: 'trace-viewer',
     type: 'feature-grid',
+    section: 'Part 3: 核心工具链',
     title: '核心工具二：Trace Viewer',
     subtitle: '调试像看电影一样简单',
     features: [
@@ -152,6 +179,7 @@ test(<span class="code-string">'test'</span>, <span class="code-keyword">async</
   {
     id: 'demo-flaky',
     type: 'code-demo',
+    section: 'Part 3: 核心工具链',
     title: '核心机制：告别 Flaky Tests',
     tag: 'Stability',
     desc: '以前我们需要写大量的 sleep(5000) 来等待页面加载，现在 Playwright 内置了智能等待机制。',
@@ -174,6 +202,7 @@ test(<span class="code-string">'test'</span>, <span class="code-keyword">async</
   {
     id: 'mock-demo',
     type: 'mock-demo',
+    section: 'Part 4: 进阶场景',
     title: '进阶场景一：网络拦截 (Mock)',
     desc: '后端接口挂了？数据造不出来？没关系，Playwright 可以在浏览器层拦截请求，直接返回模拟数据。'
   },
@@ -181,6 +210,7 @@ test(<span class="code-string">'test'</span>, <span class="code-keyword">async</
   {
     id: 'visual-regression',
     type: 'visual-compare',
+    section: 'Part 4: 进阶场景',
     title: '进阶场景二：视觉回归测试',
     desc: '像素级对比。肉眼看不出的 1px 偏移或颜色变化，Playwright 都能精准捕获。拖动滑块查看差异 👇'
   },
@@ -188,6 +218,7 @@ test(<span class="code-string">'test'</span>, <span class="code-keyword">async</
   {
     id: 'dev-solution',
     type: 'code-demo',
+    section: 'Part 4: 进阶场景',
     title: '进阶场景三：CI/CD & API',
     tag: 'DevOps',
     desc: '改了一行代码不敢上线？QA 追着你要测试数据？Playwright 帮你搞定。',
@@ -216,6 +247,7 @@ test(<span class="code-string">'新功能回归测试'</span>, <span class="code
   {
     id: 'scenarios',
     type: 'content-list',
+    section: 'Part 5: 总结与应用',
     title: '实用场景：效率翻倍',
     subtitle: '技术与非技术的完美结合',
     items: [
