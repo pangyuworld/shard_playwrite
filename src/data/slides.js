@@ -19,8 +19,8 @@ export const slides = [
     subtitle: '从入门到精通的效率之旅',
     items: [
       { icon: faLayerGroup, role: 'Part 1', text: 'Playwright 简介：定义、痛点与核心价值' },
-      { icon: faBolt, role: 'Part 2', text: '快速上手：初始化项目与核心对象模型' },
-      { icon: faCode, role: 'Part 3', text: '核心工具链：Codegen、Trace Viewer 与调试' },
+      { icon: faBolt, role: 'Part 2', text: '快速上手：初始化项目、核心对象模型与稳定性机制' },
+      { icon: faCode, role: 'Part 3', text: '核心工具链：Codegen、Trace Viewer 与调试技巧' },
       { icon: faRocket, role: 'Part 4', text: '进阶场景：Mock、视觉回归与 CI/CD' }
     ]
   },
@@ -134,48 +134,7 @@ export const slides = [
       }
     ]
   },
-  // 4. Codegen 演示
-  {
-    id: 'demo-codegen',
-    type: 'code-demo',
-    section: 'Part 3: 核心工具链',
-    title: '核心工具一：Codegen 录制',
-    tag: 'For Dev & QA',
-    desc: '不想写代码？没关系！打开浏览器点点点，Playwright 自动帮你生成代码。',
-    concept: '所见即所得。在浏览器中的每一次点击、输入，都会实时转化为标准代码。',
-    filename: 'codegen_output.ts',
-    code: `<span class="code-keyword">import</span> { test, expect } <span class="code-keyword">from</span> <span class="code-string">'@playwright/test'</span>;
-
-test(<span class="code-string">'test'</span>, <span class="code-keyword">async</span> ({ page }) => {
-  <span class="code-comment">// 1. 打开页面</span>
-  <span class="code-keyword">await</span> page.goto(<span class="code-string">'https://demo.playwright.dev/'</span>);
-  
-  <span class="code-comment">// 2. 点击登录</span>
-  <span class="code-keyword">await</span> page.getByRole(<span class="code-string">'button'</span>, { name: <span class="code-string">'Login'</span> }).click();
-  
-  <span class="code-comment">// 3. 输入账号密码 (自动填充)</span>
-  <span class="code-keyword">await</span> page.getByPlaceholder(<span class="code-string">'Username'</span>).fill(<span class="code-string">'admin'</span>);
-  <span class="code-keyword">await</span> page.getByPlaceholder(<span class="code-string">'Password'</span>).fill(<span class="code-string">'123456'</span>);
-  
-  <span class="code-comment">// 4. 断言结果</span>
-  <span class="code-keyword">await</span> expect(page.getByText(<span class="code-string">'Welcome'</span>)).toBeVisible();
-});`
-  },
-  // 6. Trace Viewer & Reports (调整顺序到 Codegen 之后)
-  {
-    id: 'trace-viewer',
-    type: 'feature-grid',
-    section: 'Part 3: 核心工具链',
-    title: '核心工具二：Trace Viewer',
-    subtitle: '调试像看电影一样简单',
-    features: [
-      { title: '时间轴回溯', desc: '拖动进度条，查看每一毫秒的页面状态', icon: faVideo },
-      { title: 'DOM 快照', desc: '不仅是截图，而是真实的 DOM，可检查元素属性', icon: faCode },
-      { title: '网络请求', desc: '查看每个操作触发的 API 请求和响应详情', icon: faNetworkWired },
-      { title: 'HTML 报告', desc: '一键生成包含视频、截图、Trace 的完整报告', icon: faChartLine }
-    ]
-  },
-  // 5. Flaky Tests 解决方案 (调整顺序)
+  // 5. Flaky Tests 解决方案 (移动到 Part 2)
   {
     id: 'demo-flaky',
     type: 'code-demo',
@@ -197,6 +156,84 @@ test(<span class="code-string">'test'</span>, <span class="code-keyword">async</
 <span class="code-keyword">await</span> expect(page.getByTestId(<span class="code-string">'status'</span>)).toHaveText(<span class="code-string">'Success'</span>, {
   timeout: <span class="code-number">10000</span> <span class="code-comment">// 智能超时控制</span>
 });`
+  },
+  // 4. Codegen 演示
+  {
+    id: 'demo-codegen',
+    type: 'code-demo',
+    section: 'Part 3: 核心工具链',
+    title: '核心工具一：Codegen 录制',
+    tag: 'For Dev & QA',
+    desc: '不想写代码？没关系！打开浏览器点点点，Playwright 自动帮你生成代码。',
+    concept: '所见即所得。在浏览器中的每一次点击、输入，都会实时转化为标准代码。',
+    filename: 'codegen_output.ts',
+    code: `<span class="code-comment"># 启动 Codegen 录制模式</span>
+<span class="code-function">npx</span> playwright codegen https://demo.playwright.dev/
+
+<span class="code-comment"># 自动生成的测试代码：</span>
+<span class="code-keyword">import</span> { test, expect } <span class="code-keyword">from</span> <span class="code-string">'@playwright/test'</span>;
+
+test(<span class="code-string">'登录流程测试'</span>, <span class="code-keyword">async</span> ({ page }) => {
+  <span class="code-comment">// 1. 打开页面</span>
+  <span class="code-keyword">await</span> page.goto(<span class="code-string">'https://demo.playwright.dev/'</span>);
+
+  <span class="code-comment">// 2. 点击登录按钮</span>
+  <span class="code-keyword">await</span> page.getByRole(<span class="code-string">'button'</span>, { name: <span class="code-string">'Login'</span> }).click();
+
+  <span class="code-comment">// 3. 填写表单 (录制时自动生成)</span>
+  <span class="code-keyword">await</span> page.getByPlaceholder(<span class="code-string">'Username'</span>).fill(<span class="code-string">'admin'</span>);
+  <span class="code-keyword">await</span> page.getByPlaceholder(<span class="code-string">'Password'</span>).fill(<span class="code-string">'123456'</span>);
+
+  <span class="code-comment">// 4. 提交并验证结果</span>
+  <span class="code-keyword">await</span> page.getByRole(<span class="code-string">'button'</span>, { name: <span class="code-string">'Submit'</span> }).click();
+  <span class="code-keyword">await</span> expect(page.getByText(<span class="code-string">'Welcome'</span>)).toBeVisible();
+});`
+  },
+  // 6. Trace Viewer & Reports
+  {
+    id: 'trace-viewer',
+    type: 'feature-grid',
+    section: 'Part 3: 核心工具链',
+    title: '核心工具二：Trace Viewer',
+    subtitle: '调试像看电影一样简单',
+    features: [
+      { title: '时间轴回溯', desc: '拖动进度条，查看每一毫秒的页面状态', icon: faVideo },
+      { title: 'DOM 快照', desc: '不仅是截图，而是真实的 DOM，可检查元素属性', icon: faCode },
+      { title: '网络请求', desc: '查看每个操作触发的 API 请求和响应详情', icon: faNetworkWired },
+      { title: 'HTML 报告', desc: '一键生成包含视频、截图、Trace 的完整报告', icon: faChartLine }
+    ]
+  },
+  // 新增：调试技巧
+  {
+    id: 'debug-tips',
+    type: 'code-demo',
+    section: 'Part 3: 核心工具链',
+    title: '核心工具三：调试技巧',
+    tag: 'Debug',
+    desc: '测试失败了？别慌！Playwright 提供了强大的调试工具，让你快速定位问题。',
+    concept: '多维度调试。从代码断点到可视化追踪，从控制台输出到录屏回放，全方位助力问题排查。',
+    filename: 'debug_techniques.ts',
+    code: `<span class="code-comment">// 1. 开启调试模式</span>
+<span class="code-function">npx</span> playwright test --debug
+
+<span class="code-comment">// 2. 代码中添加断点</span>
+<span class="code-keyword">await</span> page.pause(); <span class="code-comment">// 暂停执行，打开调试器</span>
+
+<span class="code-comment">// 3. 慢动作模式 (便于观察)</span>
+<span class="code-keyword">const</span> browser = <span class="code-keyword">await</span> chromium.launch({
+  slowMo: <span class="code-number">1000</span> <span class="code-comment">// 每个操作间隔1秒</span>
+});
+
+<span class="code-comment">// 4. 截图调试</span>
+<span class="code-keyword">await</span> page.screenshot({ path: <span class="code-string">'debug.png'</span> });
+
+<span class="code-comment">// 5. 控制台输出调试</span>
+page.on(<span class="code-string">'console'</span>, msg => console.log(<span class="code-string">'PAGE LOG:'</span>, msg.text()));
+
+<span class="code-comment">// 6. 生成 Trace 文件</span>
+<span class="code-keyword">await</span> context.tracing.start({ screenshots: <span class="code-keyword">true</span>, snapshots: <span class="code-keyword">true</span> });
+<span class="code-comment">// ... 测试代码 ...</span>
+<span class="code-keyword">await</span> context.tracing.stop({ path: <span class="code-string">'trace.zip'</span> });</span>`
   },
   // 8. Mock 数据演示 (进阶场景)
   {
