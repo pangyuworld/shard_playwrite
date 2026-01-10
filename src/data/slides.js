@@ -5,10 +5,10 @@ export const slides = [
   {
     id: 'cover',
     type: 'cover',
-    title: 'Dev / QA / PO 都能用的',
+    title: 'Playwright',
     highlight: '自动化“效率神器”',
-    subtitle: '想让自动化测试不再是 QA 专属？Playwright 来了！',
-    footer: '打破角色壁垒 · 全链路提升协作速度',
+    subtitle: '想让自动化测试不再是 QA 专属？打破壁垒，全链路提升协作速度！',
+    footer: 'Dev · QA · PO 协作共赢',
     icon: faRocket
   },
   // 1.5 会议大纲
