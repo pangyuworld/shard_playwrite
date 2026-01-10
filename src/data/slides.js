@@ -1,4 +1,4 @@
-import { faCode, faBug, faChartLine, faRocket, faRobot, faLayerGroup, faCheckCircle, faBolt, faUsers, faVideo, faEye, faNetworkWired, faListUl } from '@fortawesome/free-solid-svg-icons';
+import { faCode, faBug, faChartLine, faRocket, faRobot, faLayerGroup, faCheckCircle, faBolt, faUsers, faVideo, faEye, faNetworkWired, faListUl, faGlobe, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 
 export const slides = [
   // 1. 封面
@@ -18,9 +18,9 @@ export const slides = [
     title: '本次分享大纲',
     subtitle: '从入门到精通的效率之旅',
     items: [
-      { icon: faLayerGroup, role: 'Overview', text: '为什么选择 Playwright？痛点与核心价值' },
-      { icon: faBolt, role: 'Start', text: '快速上手：一键初始化与项目结构' },
-      { icon: faCode, role: 'Demo', text: '核心功能实战：Codegen、调试与 Trace' },
+      { icon: faLayerGroup, role: 'Intro', text: 'Playwright 简介：痛点与核心价值' },
+      { icon: faBolt, role: 'Setup', text: '快速上手：初始化项目与核心对象模型' },
+      { icon: faCode, role: 'Tools', text: '核心工具链：Codegen、Trace Viewer 与调试' },
       { icon: faRocket, role: 'Advanced', text: '进阶场景：Mock、视觉回归与 CI/CD' }
     ]
   },
@@ -83,11 +83,37 @@ export const slides = [
 <span class="code-comment"># 3. 运行测试</span>
 <span class="code-function">npx</span> playwright test`
   },
+  // 3.6 核心对象 (新增)
+  {
+    id: 'core-concepts',
+    type: 'cards',
+    title: '核心对象模型',
+    cards: [
+      { 
+        title: 'Browser', 
+        desc: '浏览器实例 (Chromium, Firefox, WebKit)。通常整个测试只启动一次，成本较高。',
+        icon: faGlobe,
+        color: 'bg-gray-600'
+      },
+      { 
+        title: 'Context', 
+        desc: '隐身模式会话。极速创建，相互隔离。每个测试用例都运行在独立的 Context 中，互不干扰。',
+        icon: faLayerGroup,
+        color: 'bg-blue-600'
+      },
+      { 
+        title: 'Page', 
+        desc: '单个标签页。我们在 Page 上进行点击、输入、断言等操作。一个 Context 可以包含多个 Page。',
+        icon: faFileAlt,
+        color: 'bg-green-600'
+      }
+    ]
+  },
   // 4. Codegen 演示
   {
     id: 'demo-codegen',
     type: 'code-demo',
-    title: '神器一：Codegen 录制',
+    title: '核心工具一：Codegen 录制',
     tag: 'For Dev & QA',
     desc: '不想写代码？没关系！打开浏览器点点点，Playwright 自动帮你生成代码。',
     concept: '所见即所得。在浏览器中的每一次点击、输入，都会实时转化为标准代码。',
@@ -109,12 +135,61 @@ test(<span class="code-string">'test'</span>, <span class="code-keyword">async</
   <span class="code-keyword">await</span> expect(page.getByText(<span class="code-string">'Welcome'</span>)).toBeVisible();
 });`
   },
-  // 4.5 Dev 痛点解决方案
+  // 6. Trace Viewer & Reports (调整顺序到 Codegen 之后)
+  {
+    id: 'trace-viewer',
+    type: 'feature-grid',
+    title: '核心工具二：Trace Viewer',
+    subtitle: '调试像看电影一样简单',
+    features: [
+      { title: '时间轴回溯', desc: '拖动进度条，查看每一毫秒的页面状态', icon: faVideo },
+      { title: 'DOM 快照', desc: '不仅是截图，而是真实的 DOM，可检查元素属性', icon: faCode },
+      { title: '网络请求', desc: '查看每个操作触发的 API 请求和响应详情', icon: faNetworkWired },
+      { title: 'HTML 报告', desc: '一键生成包含视频、截图、Trace 的完整报告', icon: faChartLine }
+    ]
+  },
+  // 5. Flaky Tests 解决方案 (调整顺序)
+  {
+    id: 'demo-flaky',
+    type: 'code-demo',
+    title: '核心机制：告别 Flaky Tests',
+    tag: 'Stability',
+    desc: '以前我们需要写大量的 sleep(5000) 来等待页面加载，现在 Playwright 内置了智能等待机制。',
+    concept: 'Auto-wait。在执行点击之前，Playwright 会自动确保元素是可见的、可点击的、且停止了动画。',
+    filename: 'no_more_sleep.ts',
+    code: `<span class="code-comment">// ❌ 以前的做法 (Selenium/Puppeteer)</span>
+<span class="code-keyword">await</span> driver.sleep(<span class="code-number">5000</span>); <span class="code-comment">// 死等，浪费时间</span>
+<span class="code-keyword">await</span> driver.findElement(By.id(<span class="code-string">'submit'</span>)).click();
+
+<span class="code-comment">// ✅ Playwright 的做法</span>
+<span class="code-comment">// 不需要 sleep！它会自动等待元素准备好</span>
+<span class="code-keyword">await</span> page.getByRole(<span class="code-string">'button'</span>, { name: <span class="code-string">'Submit'</span> }).click();
+
+<span class="code-comment">// 甚至可以自定义等待状态</span>
+<span class="code-keyword">await</span> expect(page.getByTestId(<span class="code-string">'status'</span>)).toHaveText(<span class="code-string">'Success'</span>, {
+  timeout: <span class="code-number">10000</span> <span class="code-comment">// 智能超时控制</span>
+});`
+  },
+  // 8. Mock 数据演示 (进阶场景)
+  {
+    id: 'mock-demo',
+    type: 'mock-demo',
+    title: '进阶场景一：网络拦截 (Mock)',
+    desc: '后端接口挂了？数据造不出来？没关系，Playwright 可以在浏览器层拦截请求，直接返回模拟数据。'
+  },
+  // 7. 视觉回归演示 (进阶场景)
+  {
+    id: 'visual-regression',
+    type: 'visual-compare',
+    title: '进阶场景二：视觉回归测试',
+    desc: '像素级对比。肉眼看不出的 1px 偏移或颜色变化，Playwright 都能精准捕获。拖动滑块查看差异 👇'
+  },
+  // 4.5 Dev 痛点解决方案 (进阶场景 - CI/CD)
   {
     id: 'dev-solution',
     type: 'code-demo',
-    title: 'Dev 痛点击破：回归 & 造数',
-    tag: 'For Dev',
+    title: '进阶场景三：CI/CD & API',
+    tag: 'DevOps',
     desc: '改了一行代码不敢上线？QA 追着你要测试数据？Playwright 帮你搞定。',
     concept: 'API 混合模式 + CI 集成。利用 API RequestContext 毫秒级造数据，集成流水线实现“提交即回归”。',
     filename: 'auto_regression.ts',
@@ -136,55 +211,6 @@ test(<span class="code-string">'新功能回归测试'</span>, <span class="code
   <span class="code-comment">// 💡 这一切都在 CI 流水线中自动运行！</span>
   <span class="code-comment">// git push -> 自动触发测试 -> 邮件接收报告</span>
 });`
-  },
-  // 5. Flaky Tests 解决方案
-  {
-    id: 'demo-flaky',
-    type: 'code-demo',
-    title: '神器二：告别 Flaky Tests',
-    tag: 'For QA',
-    desc: '以前我们需要写大量的 sleep(5000) 来等待页面加载，现在 Playwright 内置了智能等待机制。',
-    concept: 'Auto-wait。在执行点击之前，Playwright 会自动确保元素是可见的、可点击的、且停止了动画。',
-    filename: 'no_more_sleep.ts',
-    code: `<span class="code-comment">// ❌ 以前的做法 (Selenium/Puppeteer)</span>
-<span class="code-keyword">await</span> driver.sleep(<span class="code-number">5000</span>); <span class="code-comment">// 死等，浪费时间</span>
-<span class="code-keyword">await</span> driver.findElement(By.id(<span class="code-string">'submit'</span>)).click();
-
-<span class="code-comment">// ✅ Playwright 的做法</span>
-<span class="code-comment">// 不需要 sleep！它会自动等待元素准备好</span>
-<span class="code-keyword">await</span> page.getByRole(<span class="code-string">'button'</span>, { name: <span class="code-string">'Submit'</span> }).click();
-
-<span class="code-comment">// 甚至可以自定义等待状态</span>
-<span class="code-keyword">await</span> expect(page.getByTestId(<span class="code-string">'status'</span>)).toHaveText(<span class="code-string">'Success'</span>, {
-  timeout: <span class="code-number">10000</span> <span class="code-comment">// 智能超时控制</span>
-});`
-  },
-  // 6. Trace Viewer & Reports
-  {
-    id: 'trace-viewer',
-    type: 'feature-grid',
-    title: '神器三：Trace Viewer & 报告',
-    subtitle: '调试像看电影一样简单',
-    features: [
-      { title: '时间轴回溯', desc: '拖动进度条，查看每一毫秒的页面状态', icon: faVideo },
-      { title: 'DOM 快照', desc: '不仅是截图，而是真实的 DOM，可检查元素属性', icon: faCode },
-      { title: '网络请求', desc: '查看每个操作触发的 API 请求和响应详情', icon: faNetworkWired },
-      { title: 'HTML 报告', desc: '一键生成包含视频、截图、Trace 的完整报告', icon: faChartLine }
-    ]
-  },
-  // 7. 视觉回归演示
-  {
-    id: 'visual-regression',
-    type: 'visual-compare',
-    title: '神器四：视觉回归测试',
-    desc: '像素级对比。肉眼看不出的 1px 偏移或颜色变化，Playwright 都能精准捕获。拖动滑块查看差异 👇'
-  },
-  // 8. Mock 数据演示
-  {
-    id: 'mock-demo',
-    type: 'mock-demo',
-    title: '神器五：网络拦截 (Mock)',
-    desc: '后端接口挂了？数据造不出来？没关系，Playwright 可以在浏览器层拦截请求，直接返回模拟数据。'
   },
   // 9. 实用场景
   {
