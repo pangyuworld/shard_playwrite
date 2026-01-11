@@ -75,18 +75,23 @@ const containerVariants = {
     );
 
     // 列表内容组件
-    const ContentListSlide = ({ data }) => (
-      <div className="h-full flex flex-col justify-start px-12 md:px-24 py-8">
-        <motion.div
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-6"
-        >
-          <h2 className="text-3xl font-bold mb-2 text-white drop-shadow-lg">{data.title}</h2>
-          <p className="text-lg text-brand-primary mb-6 font-medium">{data.subtitle}</p>
-        </motion.div>
-        <div className="space-y-2 flex-1 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
+    const ContentListSlide = ({ data }) => {
+      // 判断是否为大纲页面（agenda），大纲页面使用紧凑布局
+      const isAgenda = data.id === 'agenda';
+      const itemSpacing = isAgenda ? 'space-y-2' : 'space-y-6';
+
+      return (
+        <div className="h-full flex flex-col justify-start px-12 md:px-24 py-8">
+          <motion.div
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mb-6"
+          >
+            <h2 className="text-3xl font-bold mb-2 text-white drop-shadow-lg">{data.title}</h2>
+            <p className="text-lg text-brand-primary mb-6 font-medium">{data.subtitle}</p>
+          </motion.div>
+          <div className={`${itemSpacing} flex-1 max-h-[calc(100vh-200px)] overflow-y-auto pr-2`}>
           {data.items.map((item, index) => (
             <motion.div
               key={index}
@@ -94,7 +99,7 @@ const containerVariants = {
               initial="hidden"
               animate="visible"
               transition={{ delay: index * 0.08 }}
-              className="group flex items-center bg-gradient-to-r from-white/10 to-white/5 p-3 rounded-xl border border-white/15 hover:border-brand-primary/70 hover:bg-gradient-to-r hover:from-white/15 hover:to-white/8 transition-all duration-300 hover:shadow-lg hover:shadow-brand-primary/10 hover:scale-[1.005] backdrop-blur-md"
+              className={`group flex items-center bg-gradient-to-r from-white/10 to-white/5 rounded-xl border border-white/15 hover:border-brand-primary/70 hover:bg-gradient-to-r hover:from-white/15 hover:to-white/8 transition-all duration-300 hover:shadow-lg hover:shadow-brand-primary/10 hover:scale-[1.005] backdrop-blur-md ${isAgenda ? 'p-3' : 'p-4'}`}
             >
               <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-brand-primary/40 to-brand-primary/20 flex items-center justify-center text-brand-primary text-lg mr-4 group-hover:scale-105 group-hover:rotate-1 transition-all duration-300 shadow-md border border-brand-primary/20">
                 <FontAwesomeIcon icon={item.icon} />
@@ -109,9 +114,10 @@ const containerVariants = {
               </div>
             </motion.div>
           ))}
+          </div>
         </div>
-      </div>
-    );
+      );
+    };
 
     // 左右分栏组件
     const SplitSlide = ({ data }) => (
