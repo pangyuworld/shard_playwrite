@@ -22,8 +22,8 @@ export const slides = [
       { icon: faLayerGroup, role: 'Part 1', text: 'Playwright 简介：定义、痛点与核心价值' },
       { icon: faBolt, role: 'Part 2', text: '快速上手：初始化项目、核心对象模型与稳定性机制' },
       { icon: faCode, role: 'Part 3', text: '核心工具链：Codegen、Trace Viewer 与调试技巧' },
-      { icon: faRocket, role: 'Part 4', text: '进阶场景：Mock、视觉回归与 CI/CD' },
-      { icon: faChartBar, role: 'Part 5', text: '测试报告：内置 HTML 报告与 Allure 企业级报告集成' }
+      { icon: faChartBar, role: 'Part 4', text: '测试报告：内置 HTML 报告与 Allure 企业级报告集成' },
+      { icon: faRocket, role: 'Part 5', text: '进阶场景：Mock、视觉回归与 CI/CD' }
     ]
   },
   // 2. 痛点
@@ -253,56 +253,11 @@ page.on(<span class="code-string">'console'</span>, msg => console.log(<span cla
 <span class="code-comment">// ... 测试代码 ...</span>
 <span class="code-keyword">await</span> context.tracing.stop({ path: <span class="code-string">'trace.zip'</span> });</span>`
   },
-  // 8. Mock 数据演示 (进阶场景)
-  {
-    id: 'mock-demo',
-    type: 'mock-demo',
-    section: 'Part 4: 进阶场景',
-    title: '进阶场景一：网络拦截 (Mock)',
-    desc: '后端接口挂了？数据造不出来？没关系，Playwright 可以在浏览器层拦截请求，直接返回模拟数据。'
-  },
-  // 7. 视觉回归演示 (进阶场景)
-  {
-    id: 'visual-regression',
-    type: 'visual-compare',
-    section: 'Part 4: 进阶场景',
-    title: '进阶场景二：视觉回归测试',
-    desc: '像素级对比。肉眼看不出的 1px 偏移或颜色变化，Playwright 都能精准捕获。拖动滑块查看差异 👇'
-  },
-  // 4.5 Dev 痛点解决方案 (进阶场景 - CI/CD)
-  {
-    id: 'dev-solution',
-    type: 'code-demo',
-    section: 'Part 4: 进阶场景',
-    title: '进阶场景三：CI/CD & API',
-    tag: 'DevOps',
-    desc: '改了一行代码不敢上线？QA 追着你要测试数据？Playwright 帮你搞定。',
-    concept: 'API 混合模式 + CI 集成。利用 API RequestContext 毫秒级造数据，集成流水线实现"提交即回归"。',
-    filename: 'auto_regression.ts',
-    code: `<span class="code-keyword">import</span> { test, expect } <span class="code-keyword">from</span> <span class="code-string">'@playwright/test'</span>;
-
-test(<span class="code-string">'新功能回归测试'</span>, <span class="code-keyword">async</span> ({ page, request }) => {
-  <span class="code-comment">// 🚀 痛点解决 1: 极速造数据 (无需手动操作数据库/UI)</span>
-  <span class="code-comment">// 直接调用 API 创建订单，比 UI 操作快 100 倍</span>
-  <span class="code-keyword">const</span> res = <span class="code-keyword">await</span> request.post(<span class="code-string">'/api/create-order'</span>, {
-    data: { product: <span class="code-string">'iPhone 15'</span>, qty: <span class="code-number">1</span> }
-  });
-  <span class="code-keyword">const</span> order = <span class="code-keyword">await</span> res.json();
-
-  <span class="code-comment">// 🚀 痛点解决 2: 自动回归</span>
-  <span class="code-comment">// 拿着造好的数据，直接开始 UI 验证</span>
-  <span class="code-keyword">await</span> page.goto(<span class="code-string">\`/orders/\${order.id}\`</span>);
-  <span class="code-keyword">await</span> expect(page.getByText(<span class="code-string">'待支付'</span>)).toBeVisible();
-
-  <span class="code-comment">// 💡 这一切都在 CI 流水线中自动运行！</span>
-  <span class="code-comment">// git push -> 自动触发测试 -> 邮件接收报告</span>
-});`
-  },
-  // 新增：Playwright 内置报告 (移动到 Part 5)
+  // 新增：Playwright 内置报告 (移动到 Part 4)
   {
     id: 'playwright-reports',
     type: 'feature-grid',
-    section: 'Part 5: 测试报告',
+    section: 'Part 4: 测试报告',
     title: '内置报告系统：开箱即用',
     subtitle: '专业测试报告，无需额外配置',
     features: [
@@ -312,11 +267,11 @@ test(<span class="code-string">'新功能回归测试'</span>, <span class="code
       { title: '实时预览', desc: '测试运行时实时更新，支持失败重试和并行执行统计', icon: faVideo }
     ]
   },
-  // 新增：Allure 集成 (移动到 Part 5)
+  // 新增：Allure 集成 (移动到 Part 4)
   {
     id: 'allure-integration',
     type: 'code-demo',
-    section: 'Part 5: 测试报告',
+    section: 'Part 4: 测试报告',
     title: 'Allure 企业级报告集成',
     tag: 'Enterprise',
     desc: '企业级测试报告解决方案。Allure 提供更丰富的可视化图表、趋势分析和团队协作功能。',
@@ -350,6 +305,51 @@ test(<span class="code-string">'新功能回归测试'</span>, <span class="code
 <span class="code-comment">// "scripts": {</span>
 <span class="code-comment">//   "test:allure": "playwright test && allure generate ./allure-results -o ./allure-report --clean"</span>
 <span class="code-comment">// }</span>`
+  },
+  // 8. Mock 数据演示 (进阶场景)
+  {
+    id: 'mock-demo',
+    type: 'mock-demo',
+    section: 'Part 5: 进阶场景',
+    title: '进阶场景一：网络拦截 (Mock)',
+    desc: '后端接口挂了？数据造不出来？没关系，Playwright 可以在浏览器层拦截请求，直接返回模拟数据。'
+  },
+  // 7. 视觉回归演示 (进阶场景)
+  {
+    id: 'visual-regression',
+    type: 'visual-compare',
+    section: 'Part 5: 进阶场景',
+    title: '进阶场景二：视觉回归测试',
+    desc: '像素级对比。肉眼看不出的 1px 偏移或颜色变化，Playwright 都能精准捕获。拖动滑块查看差异 👇'
+  },
+  // 4.5 Dev 痛点解决方案 (进阶场景 - CI/CD)
+  {
+    id: 'dev-solution',
+    type: 'code-demo',
+    section: 'Part 5: 进阶场景',
+    title: '进阶场景三：CI/CD & API',
+    tag: 'DevOps',
+    desc: '改了一行代码不敢上线？QA 追着你要测试数据？Playwright 帮你搞定。',
+    concept: 'API 混合模式 + CI 集成。利用 API RequestContext 毫秒级造数据，集成流水线实现"提交即回归"。',
+    filename: 'auto_regression.ts',
+    code: `<span class="code-keyword">import</span> { test, expect } <span class="code-keyword">from</span> <span class="code-string">'@playwright/test'</span>;
+
+test(<span class="code-string">'新功能回归测试'</span>, <span class="code-keyword">async</span> ({ page, request }) => {
+  <span class="code-comment">// 🚀 痛点解决 1: 极速造数据 (无需手动操作数据库/UI)</span>
+  <span class="code-comment">// 直接调用 API 创建订单，比 UI 操作快 100 倍</span>
+  <span class="code-keyword">const</span> res = <span class="code-keyword">await</span> request.post(<span class="code-string">'/api/create-order'</span>, {
+    data: { product: <span class="code-string">'iPhone 15'</span>, qty: <span class="code-number">1</span> }
+  });
+  <span class="code-keyword">const</span> order = <span class="code-keyword">await</span> res.json();
+
+  <span class="code-comment">// 🚀 痛点解决 2: 自动回归</span>
+  <span class="code-comment">// 拿着造好的数据，直接开始 UI 验证</span>
+  <span class="code-keyword">await</span> page.goto(<span class="code-string">\`/orders/\${order.id}\`</span>);
+  <span class="code-keyword">await</span> expect(page.getByText(<span class="code-string">'待支付'</span>)).toBeVisible();
+
+  <span class="code-comment">// 💡 这一切都在 CI 流水线中自动运行！</span>
+  <span class="code-comment">// git push -> 自动触发测试 -> 邮件接收报告</span>
+});`
   },
   // 9. 实用场景
   {
