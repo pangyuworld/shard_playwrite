@@ -172,24 +172,15 @@ export const slides = [
 
 <span class="code-comment"># 指定浏览器录制</span>
 <span class="code-function">npx</span> playwright codegen --browser=firefox https://example.com
-<span class="code-function">npx</span> playwright codegen --browser=webkit https://example.com
 
 <span class="code-comment"># 移动端设备模拟</span>
 <span class="code-function">npx</span> playwright codegen --device="iPhone 13" https://m.example.com
-<span class="code-function">npx</span> playwright codegen --device="Pixel 5" https://m.example.com
 
 <span class="code-comment"># 指定输出文件和语言</span>
 <span class="code-function">npx</span> playwright codegen --target=javascript -o tests/login.spec.js https://example.com
-<span class="code-function">npx</span> playwright codegen --target=python -o tests/login.py https://example.com
 
-<span class="code-comment"># 高级参数组合</span>
-<span class="code-function">npx</span> playwright codegen \\
-  --browser=chromium \\
-  --device="iPhone 12" \\
-  --viewport-size=375,812 \\
-  --user-agent="Custom Agent" \\
-  --output=tests/mobile-test.spec.ts \\
-  https://m.example.com
+<span class="code-comment"># 高级参数组合示例</span>
+<span class="code-function">npx</span> playwright codegen --browser=chromium --device="iPhone 12" --output=tests/mobile.spec.ts https://m.example.com
 
 <span class="code-comment"># 录制时保存用户数据</span>
 <span class="code-function">npx</span> playwright codegen --save-storage=auth.json https://example.com`

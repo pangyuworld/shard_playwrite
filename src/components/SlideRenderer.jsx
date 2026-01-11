@@ -164,18 +164,18 @@ const FeatureGridSlide = ({ data }) => (
 
 // 代码演示组件
 const CodeDemoSlide = ({ data }) => (
-  <div className="h-full flex flex-col px-6 md:px-12 pt-16 pb-4 gap-4 overflow-hidden">
+  <div className="h-full flex flex-col px-6 md:px-12 pt-16 pb-20 gap-3 overflow-hidden">
     {/* 标题和描述区域 */}
     <div className="flex-shrink-0">
-      <div className="flex flex-col lg:flex-row gap-4 items-start">
+      <div className="flex flex-col lg:flex-row gap-3 items-start">
         <div className="flex-1 min-w-0">
           <span className="px-3 py-1 rounded-full bg-brand-primary/20 text-brand-primary text-sm font-bold mb-2 inline-block">
             {data.tag}
           </span>
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">{data.title}</h2>
-          <p className="text-base text-gray-300 leading-relaxed">{data.desc}</p>
+          <h2 className="text-xl md:text-2xl font-bold text-white mb-2">{data.title}</h2>
+          <p className="text-sm text-gray-300 leading-relaxed">{data.desc}</p>
         </div>
-        <div className="flex-shrink-0 w-full lg:w-72">
+        <div className="flex-shrink-0 w-full lg:w-64">
           <div className="bg-white/5 p-3 rounded-lg border-l-4 border-brand-accent">
             <h4 className="text-brand-accent font-bold mb-1 text-sm">💡 核心理念</h4>
             <p className="text-gray-400 text-xs leading-relaxed">{data.concept}</p>
@@ -185,7 +185,7 @@ const CodeDemoSlide = ({ data }) => (
     </div>
 
     {/* 代码区域 */}
-    <div className="flex-1 min-h-0 w-full">
+    <div className="flex-1 min-h-0 w-full max-h-[calc(100vh-280px)]">
       <div className="bg-[#282c34] rounded-xl overflow-hidden shadow-2xl border border-white/10 h-full flex flex-col">
         <div className="flex items-center px-4 py-2 bg-[#21252b] border-b border-white/5 flex-shrink-0">
           <div className="flex gap-2">
@@ -196,7 +196,7 @@ const CodeDemoSlide = ({ data }) => (
           <span className="ml-4 text-xs text-gray-500 font-mono">{data.filename || 'example.spec.ts'}</span>
         </div>
         <div className="flex-1 overflow-auto p-3 md:p-4">
-          <pre className="font-mono text-xs leading-4 md:text-sm md:leading-5 text-gray-300 whitespace-pre-wrap">
+          <pre className="font-mono text-xs leading-4 text-gray-300 whitespace-pre-wrap">
             <code dangerouslySetInnerHTML={{ __html: data.code }} />
           </pre>
         </div>
