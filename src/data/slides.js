@@ -6,9 +6,10 @@ export const slides = [
     id: 'cover',
     type: 'cover',
     title: 'Playwright',
-    highlight: '自动化“效率神器”',
+    highlight: '自动化"效率神器"',
     subtitle: '想让自动化测试不再是 QA 专属？打破壁垒，全链路提升协作速度！',
     footer: 'Dev · QA · PO 协作共赢',
+    presenter: 'Bai, Menghan',
     icon: faRocket
   },
   // 1.5 会议大纲

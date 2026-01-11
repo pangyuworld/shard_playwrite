@@ -16,53 +16,93 @@ const containerVariants = {
 
     // 封面组件
     const CoverSlide = ({ data }) => (
-      <div className="flex flex-col items-center justify-center h-full text-center px-8 pb-20">
+      <div className="flex flex-col items-center justify-center h-full text-center px-8 pb-20 relative">
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 260, damping: 20 }}
-          className="mb-8 text-brand-primary text-8xl"
+          className="mb-8 text-brand-primary text-8xl drop-shadow-2xl"
         >
           <FontAwesomeIcon icon={data.icon} />
         </motion.div>
-        <h1 className="text-5xl md:text-6xl font-bold mb-4 text-white tracking-tight">
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+          className="text-5xl md:text-6xl font-bold mb-4 text-white tracking-tight drop-shadow-lg"
+        >
           {data.title}
-        </h1>
-        <h2 className="text-4xl md:text-5xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-accent">
+        </motion.h1>
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+          className="text-4xl md:text-5xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-brand-primary via-brand-accent to-purple-400 drop-shadow-lg"
+        >
           {data.highlight}
-        </h2>
-        <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl">
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.8 }}
+          className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl leading-relaxed"
+        >
           {data.subtitle}
-        </p>
-        <div className="mt-auto mb-20 text-gray-500 font-medium tracking-widest uppercase text-sm">
+        </motion.p>
+
+        {/* 分享人信息 */}
+        {data.presenter && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1, duration: 0.6 }}
+            className="mb-8 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full border border-white/20 shadow-xl"
+          >
+            <span className="text-brand-accent font-semibold text-lg">分享人：</span>
+            <span className="text-white font-bold text-lg ml-2">{data.presenter}</span>
+          </motion.div>
+        )}
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+          className="mt-auto mb-20 text-gray-400 font-medium tracking-widest uppercase text-sm bg-white/5 px-6 py-2 rounded-full backdrop-blur-sm"
+        >
           {data.footer}
-        </div>
+        </motion.div>
       </div>
     );
 
     // 列表内容组件
     const ContentListSlide = ({ data }) => (
       <div className="h-full flex flex-col justify-center px-12 md:px-24">
-        <h2 className="text-4xl font-bold mb-2 text-white">{data.title}</h2>
-        <p className="text-xl text-brand-primary mb-12">{data.subtitle}</p>
-        <div className="space-y-8">
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-4xl font-bold mb-2 text-white drop-shadow-lg">{data.title}</h2>
+          <p className="text-xl text-brand-primary mb-12 font-medium">{data.subtitle}</p>
+        </motion.div>
+        <div className="space-y-6">
           {data.items.map((item, index) => (
-            <motion.div 
+            <motion.div
               key={index}
               variants={itemVariants}
               initial="hidden"
               animate="visible"
-              transition={{ delay: index * 0.2 }}
-              className="flex items-start bg-white/5 p-6 rounded-xl border border-white/10 hover:border-brand-primary/50 transition-colors"
+              transition={{ delay: index * 0.15 }}
+              className="group flex items-start bg-gradient-to-r from-white/8 to-white/3 p-6 rounded-2xl border border-white/10 hover:border-brand-primary/60 hover:bg-white/10 transition-all duration-300 hover:shadow-2xl hover:shadow-brand-primary/10 hover:scale-[1.02]"
             >
-              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary text-xl mr-6">
+              <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-primary/30 to-brand-primary/10 flex items-center justify-center text-brand-primary text-xl mr-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                 <FontAwesomeIcon icon={item.icon} />
               </div>
-              <div>
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-brand-accent/20 text-brand-accent mb-2">
+              <div className="flex-1">
+                <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold bg-gradient-to-r from-brand-accent/30 to-brand-accent/20 text-brand-accent mb-3 border border-brand-accent/20">
                   {item.role}
                 </span>
-                <p className="text-lg text-gray-200 leading-relaxed">{item.text}</p>
+                <p className="text-lg text-gray-200 leading-relaxed group-hover:text-white transition-colors duration-300">{item.text}</p>
               </div>
             </motion.div>
           ))}
@@ -73,42 +113,76 @@ const containerVariants = {
     // 左右分栏组件
     const SplitSlide = ({ data }) => (
       <div className="h-full flex flex-col md:flex-row items-center px-12 md:px-24 gap-12">
-        <div className="flex-1">
-          <h2 className="text-4xl font-bold mb-8 text-white">{data.title}</h2>
-          <h3 className="text-2xl font-semibold text-brand-primary mb-4">{data.leftContent.heading}</h3>
+        <motion.div
+          className="flex-1"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-4xl font-bold mb-8 text-white drop-shadow-lg">{data.title}</h2>
+          <h3 className="text-2xl font-semibold text-brand-primary mb-4 bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent">{data.leftContent.heading}</h3>
           <p className="text-lg text-gray-300 leading-relaxed mb-8">
             {data.leftContent.text}
           </p>
           <div className="flex flex-wrap gap-3">
             {data.leftContent.tags.map((tag, i) => (
-              <span key={i} className="px-4 py-2 bg-white/10 rounded-lg text-sm font-medium text-white">
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: i * 0.1 + 0.5 }}
+                className="px-4 py-2 bg-gradient-to-r from-white/15 to-white/5 rounded-xl text-sm font-medium text-white border border-white/10 hover:border-brand-primary/50 transition-all duration-300 hover:scale-105 shadow-lg"
+              >
                 {tag}
-              </span>
+              </motion.span>
             ))}
           </div>
-        </div>
-        <div className="flex-1 w-full">
-          <div className="bg-gradient-to-br from-brand-primary/20 to-brand-accent/20 p-8 rounded-2xl border border-white/10 backdrop-blur-sm">
-            <div className="text-center mb-8">
-              <FontAwesomeIcon icon={data.rightContent.icon} className="text-6xl text-white/80" />
-            </div>
+        </motion.div>
+        <motion.div
+          className="flex-1 w-full"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <div className="bg-gradient-to-br from-brand-primary/25 to-brand-accent/25 p-8 rounded-3xl border border-white/20 backdrop-blur-md shadow-2xl hover:shadow-brand-primary/20 transition-all duration-500">
+            <motion.div
+              className="text-center mb-8"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.6, type: "spring", stiffness: 200 }}
+            >
+              <FontAwesomeIcon icon={data.rightContent.icon} className="text-7xl text-white/90 drop-shadow-lg" />
+            </motion.div>
             <div className="grid grid-cols-1 gap-4">
               {data.rightContent.stats.map((stat, i) => (
-                <div key={i} className="flex justify-between items-center bg-brand-dark/50 p-4 rounded-lg">
-                  <span className="text-gray-400">{stat.label}</span>
-                  <span className="text-xl font-bold text-white">{stat.value}</span>
-                </div>
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 + 0.8 }}
+                  className="flex justify-between items-center bg-gradient-to-r from-brand-dark/60 to-brand-dark/40 p-5 rounded-xl border border-white/10 hover:border-brand-primary/30 transition-all duration-300 hover:bg-brand-dark/70"
+                >
+                  <span className="text-gray-300 font-medium">{stat.label}</span>
+                  <span className="text-xl font-bold text-white bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent">{stat.value}</span>
+                </motion.div>
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     );
 
     // 卡片组件
     const CardsSlide = ({ data }) => (
       <div className="h-full flex flex-col justify-center px-12 md:px-24">
-        <h2 className="text-4xl font-bold mb-12 text-white">{data.title}</h2>
+        <motion.h2
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl font-bold mb-12 text-white drop-shadow-lg"
+        >
+          {data.title}
+        </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {data.cards.map((card, index) => (
             <motion.div
@@ -117,15 +191,16 @@ const containerVariants = {
               initial="hidden"
               animate="visible"
               transition={{ delay: index * 0.2 }}
-              className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:bg-white/10 transition-all group"
+              className="group bg-gradient-to-br from-white/8 to-white/3 p-8 rounded-3xl border border-white/10 hover:border-white/30 hover:bg-white/12 transition-all duration-500 hover:shadow-2xl hover:shadow-white/10 hover:scale-105 backdrop-blur-sm"
             >
-              <div className={`w-14 h-14 rounded-xl ${card.color} flex items-center justify-center text-white text-2xl mb-6 shadow-lg group-hover:scale-110 transition-transform`}>
+              <div className={`w-16 h-16 rounded-2xl ${card.color} flex items-center justify-center text-white text-2xl mb-6 shadow-2xl group-hover:scale-125 group-hover:rotate-6 transition-all duration-500`}>
                 <FontAwesomeIcon icon={card.icon} />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">{card.title}</h3>
-              <p className="text-gray-400 leading-relaxed">
+              <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-brand-primary transition-colors duration-300">{card.title}</h3>
+              <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
                 {card.desc}
               </p>
+              <div className="mt-6 w-full h-1 bg-gradient-to-r from-transparent via-brand-primary/30 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </motion.div>
           ))}
         </div>
@@ -135,10 +210,15 @@ const containerVariants = {
 // 特性网格组件
 const FeatureGridSlide = ({ data }) => (
   <div className="h-full flex flex-col justify-center px-12 md:px-24">
-    <div className="mb-12">
-      <h2 className="text-4xl font-bold mb-2 text-white">{data.title}</h2>
-      <p className="text-xl text-brand-accent">{data.subtitle}</p>
-    </div>
+    <motion.div
+      className="mb-12"
+      initial={{ opacity: 0, y: -30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <h2 className="text-4xl font-bold mb-2 text-white drop-shadow-lg">{data.title}</h2>
+      <p className="text-xl text-brand-accent font-medium bg-gradient-to-r from-brand-accent to-brand-primary bg-clip-text text-transparent">{data.subtitle}</p>
+    </motion.div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {data.features.map((feature, index) => (
         <motion.div
@@ -147,14 +227,14 @@ const FeatureGridSlide = ({ data }) => (
           initial="hidden"
           animate="visible"
           transition={{ delay: index * 0.1 }}
-          className="flex items-start p-6 bg-gradient-to-r from-white/5 to-transparent rounded-xl border-l-4 border-brand-primary"
+          className="group flex items-start p-6 bg-gradient-to-r from-white/8 via-white/5 to-transparent rounded-2xl border-l-4 border-brand-primary hover:border-l-8 hover:bg-white/10 transition-all duration-300 hover:shadow-xl hover:shadow-brand-primary/20"
         >
-          <div className="text-brand-primary text-2xl mr-4 mt-1">
+          <div className="text-brand-primary text-2xl mr-4 mt-1 group-hover:scale-125 group-hover:text-brand-accent transition-all duration-300">
             <FontAwesomeIcon icon={feature.icon} />
           </div>
-          <div>
-            <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
-            <p className="text-gray-400">{feature.desc}</p>
+          <div className="flex-1">
+            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-brand-primary transition-colors duration-300">{feature.title}</h3>
+            <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300 leading-relaxed">{feature.desc}</p>
           </div>
         </motion.div>
       ))}
@@ -166,42 +246,64 @@ const FeatureGridSlide = ({ data }) => (
 const CodeDemoSlide = ({ data }) => (
   <div className="h-full flex flex-col px-6 md:px-12 pt-16 pb-20 gap-3 overflow-hidden">
     {/* 标题和描述区域 */}
-    <div className="flex-shrink-0">
+    <motion.div
+      className="flex-shrink-0"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
       <div className="flex flex-col lg:flex-row gap-3 items-start">
         <div className="flex-1 min-w-0">
-          <span className="px-3 py-1 rounded-full bg-brand-primary/20 text-brand-primary text-sm font-bold mb-2 inline-block">
+          <motion.span
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: "spring" }}
+            className="px-4 py-1.5 rounded-full bg-gradient-to-r from-brand-primary/30 to-brand-primary/20 text-brand-primary text-sm font-bold mb-2 inline-block border border-brand-primary/30 shadow-lg"
+          >
             {data.tag}
-          </span>
-          <h2 className="text-xl md:text-2xl font-bold text-white mb-2">{data.title}</h2>
+          </motion.span>
+          <h2 className="text-xl md:text-2xl font-bold text-white mb-2 drop-shadow-lg">{data.title}</h2>
           <p className="text-sm text-gray-300 leading-relaxed">{data.desc}</p>
         </div>
-        <div className="flex-shrink-0 w-full lg:w-64">
-          <div className="bg-white/5 p-3 rounded-lg border-l-4 border-brand-accent">
-            <h4 className="text-brand-accent font-bold mb-1 text-sm">💡 核心理念</h4>
+        <motion.div
+          className="flex-shrink-0 w-full lg:w-64"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <div className="bg-gradient-to-r from-white/8 to-white/5 p-4 rounded-xl border-l-4 border-brand-accent backdrop-blur-sm shadow-lg">
+            <h4 className="text-brand-accent font-bold mb-2 text-sm flex items-center gap-2">
+              <span className="text-lg">💡</span> 核心理念
+            </h4>
             <p className="text-gray-400 text-xs leading-relaxed">{data.concept}</p>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
 
     {/* 代码区域 */}
-    <div className="flex-1 min-h-0 w-full max-h-[calc(100vh-280px)]">
-      <div className="bg-[#282c34] rounded-xl overflow-hidden shadow-2xl border border-white/10 h-full flex flex-col">
-        <div className="flex items-center px-4 py-2 bg-[#21252b] border-b border-white/5 flex-shrink-0">
+    <motion.div
+      className="flex-1 min-h-0 w-full max-h-[calc(100vh-280px)]"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 0.3, duration: 0.6 }}
+    >
+      <div className="bg-[#282c34] rounded-2xl overflow-hidden shadow-2xl border border-white/20 h-full flex flex-col hover:shadow-brand-primary/10 transition-shadow duration-500">
+        <div className="flex items-center px-4 py-3 bg-gradient-to-r from-[#21252b] to-[#1e2329] border-b border-white/10 flex-shrink-0">
           <div className="flex gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-500" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500" />
-            <div className="w-3 h-3 rounded-full bg-green-500" />
+            <div className="w-3 h-3 rounded-full bg-red-500 shadow-lg" />
+            <div className="w-3 h-3 rounded-full bg-yellow-500 shadow-lg" />
+            <div className="w-3 h-3 rounded-full bg-green-500 shadow-lg" />
           </div>
-          <span className="ml-4 text-xs text-gray-500 font-mono">{data.filename || 'example.spec.ts'}</span>
+          <span className="ml-4 text-xs text-gray-400 font-mono bg-white/5 px-2 py-1 rounded">{data.filename || 'example.spec.ts'}</span>
         </div>
-        <div className="flex-1 overflow-auto p-3 md:p-4">
-          <pre className="font-mono text-xs leading-4 text-gray-300 whitespace-pre-wrap">
+        <div className="flex-1 overflow-auto p-4 md:p-6 bg-gradient-to-br from-[#282c34] to-[#2c323c]">
+          <pre className="font-mono text-xs leading-5 text-gray-300 whitespace-pre-wrap">
             <code dangerouslySetInnerHTML={{ __html: data.code }} />
           </pre>
         </div>
       </div>
-    </div>
+    </motion.div>
   </div>
 );
 
