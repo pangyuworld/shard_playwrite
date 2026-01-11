@@ -108,7 +108,7 @@ const containerVariants = {
     // 卡片组件
     const CardsSlide = ({ data }) => (
       <div className="h-full flex flex-col justify-center px-12 md:px-24">
-        <h2 className="text-4xl font-bold mb-12 text-center text-white">{data.title}</h2>
+        <h2 className="text-4xl font-bold mb-12 text-white">{data.title}</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {data.cards.map((card, index) => (
             <motion.div
@@ -135,7 +135,7 @@ const containerVariants = {
 // 特性网格组件
 const FeatureGridSlide = ({ data }) => (
   <div className="h-full flex flex-col justify-center px-12 md:px-24">
-    <div className="text-center mb-12">
+    <div className="mb-12">
       <h2 className="text-4xl font-bold mb-2 text-white">{data.title}</h2>
       <p className="text-xl text-brand-accent">{data.subtitle}</p>
     </div>
@@ -219,9 +219,9 @@ const VisualCompareSlide = ({ data }) => {
   };
 
   return (
-    <div className="h-full flex flex-col items-center justify-center px-8">
+    <div className="h-full flex flex-col justify-center px-12 md:px-24">
       <h2 className="text-4xl font-bold text-white mb-4">{data.title}</h2>
-      <p className="text-xl text-gray-400 mb-8 text-center max-w-2xl">{data.desc}</p>
+      <p className="text-xl text-gray-400 mb-8 max-w-2xl">{data.desc}</p>
       
       <div 
         ref={containerRef}
