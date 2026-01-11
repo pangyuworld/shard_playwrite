@@ -93,16 +93,18 @@ const containerVariants = {
               initial="hidden"
               animate="visible"
               transition={{ delay: index * 0.15 }}
-              className="group flex items-start bg-gradient-to-r from-white/8 to-white/3 p-6 rounded-2xl border border-white/10 hover:border-brand-primary/60 hover:bg-white/10 transition-all duration-300 hover:shadow-2xl hover:shadow-brand-primary/10 hover:scale-[1.02]"
+              className="group flex items-center bg-gradient-to-r from-white/10 to-white/5 p-8 rounded-3xl border-2 border-white/15 hover:border-brand-primary/70 hover:bg-gradient-to-r hover:from-white/15 hover:to-white/8 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-primary/20 hover:scale-[1.03] backdrop-blur-md"
             >
-              <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-primary/30 to-brand-primary/10 flex items-center justify-center text-brand-primary text-xl mr-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+              <div className="flex-shrink-0 w-20 h-20 rounded-3xl bg-gradient-to-br from-brand-primary/40 to-brand-primary/20 flex items-center justify-center text-brand-primary text-3xl mr-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-2xl border border-brand-primary/20">
                 <FontAwesomeIcon icon={item.icon} />
               </div>
-              <div className="flex-1">
-                <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold bg-gradient-to-r from-brand-accent/30 to-brand-accent/20 text-brand-accent mb-3 border border-brand-accent/20">
-                  {item.role}
-                </span>
-                <p className="text-lg text-gray-200 leading-relaxed group-hover:text-white transition-colors duration-300">{item.text}</p>
+              <div className="flex items-center gap-6 flex-1">
+                <div className="flex-shrink-0">
+                  <span className="px-5 py-2.5 rounded-2xl text-base font-bold bg-gradient-to-r from-brand-accent/40 to-brand-accent/30 text-white border-2 border-brand-accent/30 whitespace-nowrap shadow-xl backdrop-blur-sm group-hover:scale-105 transition-all duration-300">
+                    {item.role}
+                  </span>
+                </div>
+                <p className="text-xl text-gray-200 leading-relaxed group-hover:text-white transition-colors duration-300 flex-1 font-medium">{item.text}</p>
               </div>
             </motion.div>
           ))}
