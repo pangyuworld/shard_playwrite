@@ -81,7 +81,7 @@ const containerVariants = {
       const itemSpacing = isAgenda ? 'space-y-2' : 'space-y-6';
 
       return (
-        <div className="h-full flex flex-col justify-start px-12 md:px-24 py-8">
+        <div className="h-full flex flex-col justify-start px-12 md:px-24 py-8 pt-16">
           <motion.div
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -121,7 +121,7 @@ const containerVariants = {
 
     // 左右分栏组件
     const SplitSlide = ({ data }) => (
-      <div className="h-full flex flex-col md:flex-row items-center px-12 md:px-24 gap-12">
+      <div className="h-full flex flex-col md:flex-row items-center px-12 md:px-24 gap-12 pt-16">
         <motion.div
           className="flex-1"
           initial={{ opacity: 0, x: -50 }}
@@ -183,7 +183,7 @@ const containerVariants = {
 
     // 卡片组件
     const CardsSlide = ({ data }) => (
-      <div className="h-full flex flex-col justify-center px-12 md:px-24">
+      <div className="h-full flex flex-col justify-center px-12 md:px-24 pt-16">
         <motion.h2
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -218,7 +218,7 @@ const containerVariants = {
 
 // 特性网格组件
 const FeatureGridSlide = ({ data }) => (
-  <div className="h-full flex flex-col justify-center px-12 md:px-24">
+  <div className="h-full flex flex-col justify-center px-12 md:px-24 pt-16">
     <motion.div
       className="mb-12"
       initial={{ opacity: 0, y: -30 }}
@@ -330,7 +330,7 @@ const VisualCompareSlide = ({ data }) => {
   };
 
   return (
-    <div className="h-full flex flex-col justify-center px-12 md:px-24">
+    <div className="h-full flex flex-col justify-center px-12 md:px-24 pt-16">
       <h2 className="text-4xl font-bold text-white mb-4">{data.title}</h2>
       <p className="text-xl text-gray-400 mb-8 max-w-2xl">{data.desc}</p>
       
@@ -409,7 +409,7 @@ const MockDemoSlide = ({ data }) => {
   }, []);
 
   return (
-    <div className="h-full flex flex-col justify-center px-12 md:px-24">
+    <div className="h-full flex flex-col justify-center px-12 md:px-24 pt-16">
       <h2 className="text-4xl font-bold mb-4 text-white">{data.title}</h2>
       <p className="text-xl text-gray-400 mb-12">{data.desc}</p>
       
