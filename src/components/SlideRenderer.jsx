@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faBug, faCode, faCamera, faNetworkWired, faFileAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPlay, faBug, faCode, faCamera, faNetworkWired, faFileAlt, faCodeBranch, faHammer, faRocket, faCheckCircle, faEnvelope, faServer } from '@fortawesome/free-solid-svg-icons';
 
 const containerVariants = {
       hidden: { opacity: 0, x: 50 },
@@ -502,6 +502,154 @@ const MockDemoSlide = ({ data }) => {
   );
 };
 
+// CI/CD 流水线组件
+const CIPipelineSlide = ({ data }) => {
+  const [activeStep, setActiveStep] = useState(0);
+
+  const pipelineSteps = [
+    { id: 'merge', title: '代码合并', desc: 'Git Push/PR Merge', icon: faCodeBranch, color: 'bg-blue-500', duration: '1s' },
+    { id: 'build', title: '构建打包', desc: 'Webpack/Vite Build', icon: faHammer, color: 'bg-orange-500', duration: '30s' },
+    { id: 'deploy', title: '部署发布', desc: 'Deploy to Staging', icon: faRocket, color: 'bg-purple-500', duration: '10s' },
+    { id: 'test', title: 'E2E测试', desc: 'Playwright Tests', icon: faPlay, color: 'bg-green-500', duration: '2min' },
+    { id: 'report', title: '生成报告', desc: 'HTML/Allure Reports', icon: faFileAlt, color: 'bg-cyan-500', duration: '5s' },
+    { id: 'notify', title: '结果通知', desc: 'Email/Slack/钉钉', icon: faEnvelope, color: 'bg-pink-500', duration: '1s' }
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveStep(s => (s + 1) % (pipelineSteps.length + 1));
+    }, 1500);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="h-full flex flex-col px-6 md:px-12 pt-8 pb-20 gap-6">
+      {/* 标题区域 */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-center mb-4"
+      >
+        <span className="px-4 py-1.5 rounded-full bg-gradient-to-r from-brand-primary/30 to-brand-primary/20 text-brand-primary text-sm font-bold mb-3 inline-block border border-brand-primary/30 shadow-lg">
+          {data.tag}
+        </span>
+        <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 drop-shadow-lg">{data.title}</h2>
+        <p className="text-sm text-gray-300 leading-relaxed max-w-3xl mx-auto">{data.desc}</p>
+      </motion.div>
+
+      {/* 流水线可视化 */}
+      <div className="flex-1 flex flex-col justify-center">
+        {/* 流水线节点 */}
+        <div className="relative mb-8">
+          {/* 连接线 */}
+          <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 -translate-y-1/2 rounded-full"></div>
+
+          {/* 进度线 */}
+          <motion.div
+            className="absolute top-1/2 left-0 h-1 bg-gradient-to-r from-brand-primary via-brand-accent to-green-400 -translate-y-1/2 rounded-full shadow-lg"
+            initial={{ width: '0%' }}
+            animate={{
+              width: activeStep === pipelineSteps.length ? '100%' : `${(activeStep / pipelineSteps.length) * 100}%`
+            }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+          />
+
+          {/* 节点 */}
+          <div className="relative flex justify-between items-center">
+            {pipelineSteps.map((step, index) => (
+              <motion.div
+                key={step.id}
+                className="flex flex-col items-center z-10"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: index * 0.1, type: "spring" }}
+              >
+                {/* 节点圆圈 */}
+                <div className={`relative w-16 h-16 rounded-full border-4 flex items-center justify-center text-white text-xl transition-all duration-500 shadow-2xl ${
+                  activeStep > index
+                    ? `${step.color} border-white/30 shadow-[0_0_20px_rgba(59,130,246,0.6)]`
+                    : activeStep === index
+                    ? `${step.color} border-white/50 shadow-[0_0_30px_rgba(59,130,246,0.8)] animate-pulse`
+                    : 'bg-gray-700 border-gray-600'
+                }`}>
+                  <FontAwesomeIcon icon={step.icon} className={`${activeStep >= index ? 'scale-110' : 'scale-100'} transition-transform duration-300`} />
+
+                  {/* 活跃状态指示器 */}
+                  {activeStep === index && (
+                    <motion.div
+                      className="absolute -inset-2 rounded-full border-2 border-white/50"
+                      animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    />
+                  )}
+                </div>
+
+                {/* 节点信息 */}
+                <div className="mt-4 text-center min-w-[100px]">
+                  <h4 className={`text-sm font-bold mb-1 transition-colors duration-300 ${
+                    activeStep >= index ? 'text-white' : 'text-gray-500'
+                  }`}>
+                    {step.title}
+                  </h4>
+                  <p className={`text-xs mb-1 transition-colors duration-300 ${
+                    activeStep >= index ? 'text-gray-300' : 'text-gray-600'
+                  }`}>
+                    {step.desc}
+                  </p>
+                  <span className={`text-xs font-mono px-2 py-0.5 rounded transition-colors duration-300 ${
+                    activeStep >= index
+                      ? 'bg-brand-primary/20 text-brand-primary'
+                      : 'bg-gray-800 text-gray-500'
+                  }`}>
+                    {step.duration}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* 状态信息 */}
+        <div className="text-center">
+          <motion.div
+            key={activeStep}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white/5 backdrop-blur-md p-4 rounded-xl border border-white/10 inline-block"
+          >
+            <p className="text-brand-accent font-mono text-sm">
+              {activeStep === 0 && "🚀 流水线启动中..."}
+              {activeStep === 1 && "📦 正在构建项目..."}
+              {activeStep === 2 && "🚀 部署到测试环境..."}
+              {activeStep === 3 && "🎭 运行 Playwright 测试..."}
+              {activeStep === 4 && "📊 生成测试报告..."}
+              {activeStep === 5 && "📧 发送结果通知..."}
+              {activeStep === 6 && "✅ 流水线执行完成！"}
+            </p>
+          </motion.div>
+        </div>
+
+        {/* 底部说明 */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div className="bg-white/5 p-3 rounded-lg border-l-4 border-green-500">
+            <h5 className="text-green-400 font-bold mb-1">✅ 自动化优势</h5>
+            <p className="text-gray-400">无需人工干预，提交代码即可触发完整回归测试</p>
+          </div>
+          <div className="bg-white/5 p-3 rounded-lg border-l-4 border-blue-500">
+            <h5 className="text-blue-400 font-bold mb-1">⚡ 执行效率</h5>
+            <p className="text-gray-400">并行执行多个测试，总耗时约3-5分钟</p>
+          </div>
+          <div className="bg-white/5 p-3 rounded-lg border-l-4 border-purple-500">
+            <h5 className="text-purple-400 font-bold mb-1">📊 结果可视</h5>
+            <p className="text-gray-400">自动生成报告并推送，问题一目了然</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
     export const SlideRenderer = ({ slide }) => {
       const renderContent = () => {
         switch (slide.type) {
@@ -513,6 +661,7 @@ const MockDemoSlide = ({ data }) => {
       case 'code-demo': return <CodeDemoSlide data={slide} />;
       case 'visual-compare': return <VisualCompareSlide data={slide} />;
       case 'mock-demo': return <MockDemoSlide data={slide} />;
+      case 'ci-pipeline': return <CIPipelineSlide data={slide} />;
       default: return <div className="text-white">Unknown Slide Type</div>;
     }
   };
