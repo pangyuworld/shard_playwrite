@@ -22,7 +22,8 @@ export const slides = [
       { icon: faLayerGroup, role: 'Part 1', text: 'Playwright 简介：定义、痛点与核心价值' },
       { icon: faBolt, role: 'Part 2', text: '快速上手：初始化项目、核心对象模型与稳定性机制' },
       { icon: faCode, role: 'Part 3', text: '核心工具链：Codegen、Trace Viewer 与调试技巧' },
-      { icon: faRocket, role: 'Part 4', text: '进阶场景：Mock、视觉回归与 CI/CD' }
+      { icon: faRocket, role: 'Part 4', text: '进阶场景：Mock、视觉回归与 CI/CD' },
+      { icon: faChartBar, role: 'Part 5', text: '测试报告：内置 HTML 报告与 Allure 企业级报告集成' }
     ]
   },
   // 2. 痛点
@@ -297,13 +298,13 @@ test(<span class="code-string">'新功能回归测试'</span>, <span class="code
   <span class="code-comment">// git push -> 自动触发测试 -> 邮件接收报告</span>
 });`
   },
-  // 新增：Playwright 内置报告 (移动到 Part 4)
+  // 新增：Playwright 内置报告 (移动到 Part 5)
   {
     id: 'playwright-reports',
     type: 'feature-grid',
-    section: 'Part 4: 进阶场景',
-    title: '进阶场景四：内置报告系统',
-    subtitle: '开箱即用的专业测试报告',
+    section: 'Part 5: 测试报告',
+    title: '内置报告系统：开箱即用',
+    subtitle: '专业测试报告，无需额外配置',
     features: [
       { title: 'HTML 报告', desc: '自动生成交互式 HTML 报告，包含测试结果、截图、视频', icon: faFileCode },
       { title: 'JUnit XML', desc: '兼容 CI/CD 系统的标准 XML 格式报告，支持 Jenkins、GitLab', icon: faFileAlt },
@@ -311,18 +312,18 @@ test(<span class="code-string">'新功能回归测试'</span>, <span class="code
       { title: '实时预览', desc: '测试运行时实时更新，支持失败重试和并行执行统计', icon: faVideo }
     ]
   },
-  // 新增：Allure 集成 (移动到 Part 4)
+  // 新增：Allure 集成 (移动到 Part 5)
   {
     id: 'allure-integration',
     type: 'code-demo',
-    section: 'Part 4: 进阶场景',
-    title: '进阶场景五：Allure 报告集成',
+    section: 'Part 5: 测试报告',
+    title: 'Allure 企业级报告集成',
     tag: 'Enterprise',
     desc: '企业级测试报告解决方案。Allure 提供更丰富的可视化图表、趋势分析和团队协作功能。',
     concept: 'Allure 集成。通过 @playwright/test 的 reporter 配置，无缝集成 Allure 报告系统，获得专业级的测试分析能力。',
     filename: 'playwright.config.ts',
-    code: `<span class="code-comment">// 1. 安装 Allure 依赖</span>
-<span class="code-function">npm</span> install -D allure-playwright
+    code: `<span class="code-comment">// 1. 安装 Allure 依赖（需要同时安装 CLI 工具）</span>
+<span class="code-function">npm</span> install -D allure-playwright @allure/cli
 
 <span class="code-comment">// 2. 配置 playwright.config.ts</span>
 <span class="code-keyword">import</span> { defineConfig } <span class="code-keyword">from</span> <span class="code-string">'@playwright/test'</span>;
@@ -332,7 +333,9 @@ test(<span class="code-string">'新功能回归测试'</span>, <span class="code
     [<span class="code-string">'html'</span>], <span class="code-comment">// 保留内置 HTML 报告</span>
     [<span class="code-string">'allure-playwright'</span>, {
       outputFolder: <span class="code-string">'allure-results'</span>,
-      suiteTitle: <span class="code-string">'E2E Tests'</span>
+      suiteTitle: <span class="code-string">'E2E Tests'</span>,
+      detail: <span class="code-keyword">true</span>,
+      outputFolder: <span class="code-string">'./allure-results'</span>
     }]
   ],
   <span class="code-comment">// 其他配置...</span>
@@ -340,14 +343,19 @@ test(<span class="code-string">'新功能回归测试'</span>, <span class="code
 
 <span class="code-comment">// 3. 运行测试并生成报告</span>
 <span class="code-function">npx</span> playwright test
-<span class="code-function">npx</span> allure generate allure-results --clean
-<span class="code-function">npx</span> allure open allure-report`
+<span class="code-function">npx</span> allure generate ./allure-results -o ./allure-report --clean
+<span class="code-function">npx</span> allure open ./allure-report
+
+<span class="code-comment">// 4. 或者使用 package.json 脚本简化命令</span>
+<span class="code-comment">// "scripts": {</span>
+<span class="code-comment">//   "test:allure": "playwright test && allure generate ./allure-results -o ./allure-report --clean"</span>
+<span class="code-comment">// }</span>`
   },
   // 9. 实用场景
   {
     id: 'scenarios',
     type: 'content-list',
-    section: 'Part 5: 总结与应用',
+    section: 'Part 6: 总结与应用',
     title: '实用场景：效率翻倍',
     subtitle: '技术与非技术的完美结合',
     items: [
