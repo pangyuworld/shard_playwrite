@@ -16,10 +16,10 @@ const containerVariants = {
 
     // 封面组件
     const CoverSlide = ({ data }) => (
-      <div className="flex flex-col items-center justify-center h-full text-center px-8">
-        <motion.div 
-          initial={{ scale: 0 }} 
-          animate={{ scale: 1 }} 
+      <div className="flex flex-col items-center justify-center h-full text-center px-8 pb-20">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 260, damping: 20 }}
           className="mb-8 text-brand-primary text-8xl"
         >
@@ -34,7 +34,7 @@ const containerVariants = {
         <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl">
           {data.subtitle}
         </p>
-        <div className="mt-auto mb-8 text-gray-500 font-medium tracking-widest uppercase text-sm">
+        <div className="mt-auto mb-20 text-gray-500 font-medium tracking-widest uppercase text-sm">
           {data.footer}
         </div>
       </div>
