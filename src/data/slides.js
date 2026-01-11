@@ -157,49 +157,82 @@ export const slides = [
   timeout: <span class="code-number">10000</span> <span class="code-comment">// 智能超时控制</span>
 });`
   },
-  // 4. Codegen 演示
+  // 4. Codegen 演示 - 第一部分：命令行方式
   {
-    id: 'demo-codegen',
+    id: 'demo-codegen-cmd',
     type: 'code-demo',
     section: 'Part 3: 核心工具链',
-    title: '核心工具一：Codegen 录制',
-    tag: 'For Dev & QA',
-    desc: '不想写代码？没关系！Playwright 提供了GUI和命令行两种录制方式，满足不同使用习惯。',
-    concept: '所见即所得。无论是图形界面还是命令行，每一次操作都会实时转化为标准代码。',
-    filename: 'codegen_methods.ts',
-    code: `<span class="code-comment">// 方式一：命令行启动 (CMD)</span>
-<span class="code-comment"># 基础录制</span>
+    title: '核心工具一：Codegen 录制 (命令行)',
+    tag: 'CMD方式',
+    desc: '不想写代码？命令行一键启动录制！支持多种参数配置，满足不同场景需求。',
+    concept: '命令行录制。通过不同参数控制浏览器类型、设备模拟、输出格式等，灵活高效。',
+    filename: 'terminal_codegen.sh',
+    code: `<span class="code-comment"># 基础录制 - 最简单的方式</span>
 <span class="code-function">npx</span> playwright codegen https://demo.playwright.dev/
 
 <span class="code-comment"># 指定浏览器录制</span>
 <span class="code-function">npx</span> playwright codegen --browser=firefox https://example.com
+<span class="code-function">npx</span> playwright codegen --browser=webkit https://example.com
 
-<span class="code-comment"># 指定设备模拟</span>
+<span class="code-comment"># 移动端设备模拟</span>
 <span class="code-function">npx</span> playwright codegen --device="iPhone 13" https://m.example.com
+<span class="code-function">npx</span> playwright codegen --device="Pixel 5" https://m.example.com
 
-<span class="code-comment"># 指定输出文件</span>
-<span class="code-function">npx</span> playwright codegen --target=javascript -o tests/recorded.spec.js https://example.com
+<span class="code-comment"># 指定输出文件和语言</span>
+<span class="code-function">npx</span> playwright codegen --target=javascript -o tests/login.spec.js https://example.com
+<span class="code-function">npx</span> playwright codegen --target=python -o tests/login.py https://example.com
 
-<span class="code-comment">// 方式二：VS Code 插件 (GUI)</span>
-<span class="code-comment">// 1. 安装 Playwright Test for VSCode 插件</span>
-<span class="code-comment">// 2. 打开命令面板 (Ctrl+Shift+P)</span>
-<span class="code-comment">// 3. 输入 "Playwright: Record new test"</span>
-<span class="code-comment">// 4. 选择浏览器和设备，开始录制</span>
+<span class="code-comment"># 高级参数组合</span>
+<span class="code-function">npx</span> playwright codegen \\
+  --browser=chromium \\
+  --device="iPhone 12" \\
+  --viewport-size=375,812 \\
+  --user-agent="Custom Agent" \\
+  --output=tests/mobile-test.spec.ts \\
+  https://m.example.com
 
-<span class="code-comment">// 方式三：Playwright Inspector (GUI)</span>
-<span class="code-function">npx</span> playwright test --debug
-<span class="code-comment">// 在调试模式下点击 "Record" 按钮开始录制</span>
+<span class="code-comment"># 录制时保存用户数据</span>
+<span class="code-function">npx</span> playwright codegen --save-storage=auth.json https://example.com`
+  },
+  // 4.2 Codegen 演示 - 第二部分：GUI方式和代码示例
+  {
+    id: 'demo-codegen-gui',
+    type: 'code-demo',
+    section: 'Part 3: 核心工具链',
+    title: '核心工具一：Codegen 录制 (GUI & 代码)',
+    tag: 'GUI方式',
+    desc: '喜欢图形界面？VS Code插件和Inspector让录制更直观，实时预览生成的代码。',
+    concept: 'GUI录制 + 代码生成。可视化操作界面，实时代码预览，所见即所得的完美体验。',
+    filename: 'generated_test.spec.ts',
+    code: `<span class="code-comment">// GUI方式一：VS Code 插件</span>
+<span class="code-comment">// 1. 安装 "Playwright Test for VSCode" 插件</span>
+<span class="code-comment">// 2. 命令面板 (Ctrl+Shift+P) → "Playwright: Record new test"</span>
+<span class="code-comment">// 3. 选择浏览器和设备，开始可视化录制</span>
 
-<span class="code-comment">// 自动生成的测试代码示例：</span>
+<span class="code-comment">// GUI方式二：Playwright Inspector</span>
+<span class="code-comment">// npx playwright test --debug</span>
+<span class="code-comment">// 在调试界面点击 "Record" 按钮开始录制</span>
+
+<span class="code-comment">// 自动生成的完整测试代码示例：</span>
 <span class="code-keyword">import</span> { test, expect } <span class="code-keyword">from</span> <span class="code-string">'@playwright/test'</span>;
 
-test(<span class="code-string">'录制的登录流程'</span>, <span class="code-keyword">async</span> ({ page }) => {
-  <span class="code-keyword">await</span> page.goto(<span class="code-string">'https://demo.playwright.dev/'</span>);
+test(<span class="code-string">'用户登录流程测试'</span>, <span class="code-keyword">async</span> ({ page }) => {
+  <span class="code-comment">// 导航到登录页面</span>
+  <span class="code-keyword">await</span> page.goto(<span class="code-string">'https://demo.playwright.dev/todomvc'</span>);
+
+  <span class="code-comment">// 点击登录按钮</span>
   <span class="code-keyword">await</span> page.getByRole(<span class="code-string">'button'</span>, { name: <span class="code-string">'Login'</span> }).click();
-  <span class="code-keyword">await</span> page.getByPlaceholder(<span class="code-string">'Username'</span>).fill(<span class="code-string">'admin'</span>);
-  <span class="code-keyword">await</span> page.getByPlaceholder(<span class="code-string">'Password'</span>).fill(<span class="code-string">'123456'</span>);
-  <span class="code-keyword">await</span> page.getByRole(<span class="code-string">'button'</span>, { name: <span class="code-string">'Submit'</span> }).click();
-  <span class="code-keyword">await</span> expect(page.getByText(<span class="code-string">'Welcome'</span>)).toBeVisible();
+
+  <span class="code-comment">// 填写登录表单</span>
+  <span class="code-keyword">await</span> page.getByPlaceholder(<span class="code-string">'Username'</span>).fill(<span class="code-string">'testuser'</span>);
+  <span class="code-keyword">await</span> page.getByPlaceholder(<span class="code-string">'Password'</span>).fill(<span class="code-string">'password123'</span>);
+
+  <span class="code-comment">// 提交表单</span>
+  <span class="code-keyword">await</span> page.getByRole(<span class="code-string">'button'</span>, { name: <span class="code-string">'Sign in'</span> }).click();
+
+  <span class="code-comment">// 验证登录成功</span>
+  <span class="code-keyword">await</span> expect(page.getByText(<span class="code-string">'Welcome back!'</span>)).toBeVisible();
+  <span class="code-keyword">await</span> expect(page).toHaveURL(<span class="code-string">/.*dashboard.*/</span>);
 });`
   },
   // 6. Trace Viewer & Reports
