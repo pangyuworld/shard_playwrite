@@ -78,7 +78,7 @@ const containerVariants = {
     const ContentListSlide = ({ data }) => {
       // 判断是否为大纲页面（agenda），大纲页面使用紧凑布局
       const isAgenda = data.id === 'agenda';
-      const itemSpacing = isAgenda ? 'space-y-2' : 'space-y-6';
+      const itemSpacing = isAgenda ? 'space-y-2' : 'space-y-8';
 
       return (
         <div className="h-full flex flex-col justify-start px-12 md:px-24 py-8 pt-16">
@@ -99,7 +99,7 @@ const containerVariants = {
               initial="hidden"
               animate="visible"
               transition={{ delay: index * 0.08 }}
-              className={`group flex items-center bg-gradient-to-r from-white/10 to-white/5 rounded-xl border border-white/15 hover:border-brand-primary/70 hover:bg-gradient-to-r hover:from-white/15 hover:to-white/8 transition-all duration-300 hover:shadow-lg hover:shadow-brand-primary/10 hover:scale-[1.005] backdrop-blur-md ${isAgenda ? 'p-3' : 'p-4'}`}
+              className={`group flex items-center bg-gradient-to-r from-white/10 to-white/5 rounded-xl border border-white/15 hover:border-brand-primary/70 hover:bg-gradient-to-r hover:from-white/15 hover:to-white/8 transition-all duration-300 hover:shadow-lg hover:shadow-brand-primary/10 hover:scale-[1.005] backdrop-blur-md ${isAgenda ? 'p-3' : 'p-6'}`}
             >
               <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-brand-primary/40 to-brand-primary/20 flex items-center justify-center text-brand-primary text-lg mr-4 group-hover:scale-105 group-hover:rotate-1 transition-all duration-300 shadow-md border border-brand-primary/20">
                 <FontAwesomeIcon icon={item.icon} />
@@ -683,7 +683,7 @@ const CIPipelineSlide = ({ data }) => {
         >
           {/* 模块导航标签 */}
           {slide.section && (
-            <div className="absolute top-0 left-8 md:left-24 py-2 px-6 bg-white/5 backdrop-blur-md rounded-b-xl border-x border-b border-white/10 z-20 shadow-lg">
+            <div className="absolute top-0 left-12 md:left-24 py-2 px-6 bg-white/5 backdrop-blur-md rounded-b-xl border-x border-b border-white/10 z-20 shadow-lg">
               <span className="text-brand-primary font-bold text-sm tracking-widest uppercase flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-brand-primary"></span>
                 {slide.section}
