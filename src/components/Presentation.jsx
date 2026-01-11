@@ -51,30 +51,30 @@ import React, { useState, useEffect } from 'react';
           </div>
 
           {/* Controls & Progress */}
-          <div className="relative z-20 h-16 bg-black/20 backdrop-blur-md border-t border-white/5 flex items-center justify-between px-6">
+          <div className="relative z-30 h-16 bg-black/30 backdrop-blur-md border-t border-white/5 flex items-center justify-between px-6 shadow-lg">
             <div className="text-gray-400 text-sm font-mono">
               {currentSlide + 1} / {slides.length}
             </div>
 
             <div className="flex items-center gap-4">
-              <button 
+              <button
                 onClick={prevSlide}
                 disabled={currentSlide === 0}
-                className="p-2 rounded-full hover:bg-white/10 text-white disabled:opacity-30 transition-colors"
+                className="p-3 rounded-full hover:bg-white/10 text-white disabled:opacity-30 transition-colors shadow-md"
               >
-                <FontAwesomeIcon icon={faChevronLeft} />
+                <FontAwesomeIcon icon={faChevronLeft} className="text-lg" />
               </button>
-              <button 
+              <button
                 onClick={nextSlide}
                 disabled={currentSlide === slides.length - 1}
-                className="p-2 rounded-full hover:bg-white/10 text-white disabled:opacity-30 transition-colors"
+                className="p-3 rounded-full hover:bg-white/10 text-white disabled:opacity-30 transition-colors shadow-md"
               >
-                <FontAwesomeIcon icon={faChevronRight} />
+                <FontAwesomeIcon icon={faChevronRight} className="text-lg" />
               </button>
             </div>
 
             <div className="w-32 h-1 bg-gray-700 rounded-full overflow-hidden">
-              <div 
+              <div
                 className="h-full bg-brand-primary transition-all duration-300"
                 style={{ width: `${progress}%` }}
               />
