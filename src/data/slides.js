@@ -251,12 +251,12 @@ page.on(<span class="code-string">'console'</span>, msg => console.log(<span cla
 <span class="code-comment">// ... 测试代码 ...</span>
 <span class="code-keyword">await</span> context.tracing.stop({ path: <span class="code-string">'trace.zip'</span> });</span>`
   },
-  // 新增：Playwright 内置报告
+  // 新增：Playwright 内置报告 (移动到 Part 4)
   {
     id: 'playwright-reports',
     type: 'feature-grid',
-    section: 'Part 3: 核心工具链',
-    title: '核心工具四：内置报告系统',
+    section: 'Part 4: 进阶场景',
+    title: '进阶场景四：内置报告系统',
     subtitle: '开箱即用的专业测试报告',
     features: [
       { title: 'HTML 报告', desc: '自动生成交互式 HTML 报告，包含测试结果、截图、视频', icon: faFileCode },
@@ -265,12 +265,12 @@ page.on(<span class="code-string">'console'</span>, msg => console.log(<span cla
       { title: '实时预览', desc: '测试运行时实时更新，支持失败重试和并行执行统计', icon: faVideo }
     ]
   },
-  // 新增：Allure 集成
+  // 新增：Allure 集成 (移动到 Part 4)
   {
     id: 'allure-integration',
     type: 'code-demo',
-    section: 'Part 3: 核心工具链',
-    title: '核心工具五：Allure 报告集成',
+    section: 'Part 4: 进阶场景',
+    title: '进阶场景五：Allure 报告集成',
     tag: 'Enterprise',
     desc: '企业级测试报告解决方案。Allure 提供更丰富的可视化图表、趋势分析和团队协作功能。',
     concept: 'Allure 集成。通过 @playwright/test 的 reporter 配置，无缝集成 Allure 报告系统，获得专业级的测试分析能力。',
