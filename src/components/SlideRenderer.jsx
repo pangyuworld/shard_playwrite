@@ -164,23 +164,30 @@ const FeatureGridSlide = ({ data }) => (
 
 // 代码演示组件
 const CodeDemoSlide = ({ data }) => (
-  <div className="h-full flex flex-col md:flex-row px-8 md:px-16 gap-8 items-center">
-    <div className="flex-1">
-      <div className="mb-6">
-        <span className="px-3 py-1 rounded-full bg-brand-primary/20 text-brand-primary text-sm font-bold mb-4 inline-block">
-          {data.tag}
-        </span>
-        <h2 className="text-4xl font-bold text-white mb-4">{data.title}</h2>
-        <p className="text-xl text-gray-300 leading-relaxed mb-6">{data.desc}</p>
-        <div className="bg-white/5 p-4 rounded-lg border-l-4 border-brand-accent">
-          <h4 className="text-brand-accent font-bold mb-2">💡 核心理念</h4>
-          <p className="text-gray-400 text-sm">{data.concept}</p>
+  <div className="h-full flex flex-col px-6 md:px-12 py-8 gap-6 overflow-hidden">
+    {/* 标题和描述区域 */}
+    <div className="flex-shrink-0">
+      <div className="flex flex-col md:flex-row gap-6 items-start">
+        <div className="flex-1 min-w-0">
+          <span className="px-3 py-1 rounded-full bg-brand-primary/20 text-brand-primary text-sm font-bold mb-3 inline-block">
+            {data.tag}
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">{data.title}</h2>
+          <p className="text-lg text-gray-300 leading-relaxed mb-4">{data.desc}</p>
+        </div>
+        <div className="flex-shrink-0 w-full md:w-80">
+          <div className="bg-white/5 p-4 rounded-lg border-l-4 border-brand-accent">
+            <h4 className="text-brand-accent font-bold mb-2">💡 核心理念</h4>
+            <p className="text-gray-400 text-sm leading-relaxed">{data.concept}</p>
+          </div>
         </div>
       </div>
     </div>
-    <div className="flex-1 w-full max-w-2xl">
-      <div className="bg-[#282c34] rounded-xl overflow-hidden shadow-2xl border border-white/10">
-        <div className="flex items-center px-4 py-2 bg-[#21252b] border-b border-white/5">
+
+    {/* 代码区域 */}
+    <div className="flex-1 min-h-0 w-full">
+      <div className="bg-[#282c34] rounded-xl overflow-hidden shadow-2xl border border-white/10 h-full flex flex-col">
+        <div className="flex items-center px-4 py-3 bg-[#21252b] border-b border-white/5 flex-shrink-0">
           <div className="flex gap-2">
             <div className="w-3 h-3 rounded-full bg-red-500" />
             <div className="w-3 h-3 rounded-full bg-yellow-500" />
@@ -188,8 +195,8 @@ const CodeDemoSlide = ({ data }) => (
           </div>
           <span className="ml-4 text-xs text-gray-500 font-mono">{data.filename || 'example.spec.ts'}</span>
         </div>
-        <div className="p-6 overflow-x-auto">
-          <pre className="font-mono text-sm leading-6 text-gray-300 whitespace-pre-wrap">
+        <div className="flex-1 overflow-auto p-4 md:p-6">
+          <pre className="font-mono text-xs md:text-sm leading-5 md:leading-6 text-gray-300 whitespace-pre-wrap">
             <code dangerouslySetInnerHTML={{ __html: data.code }} />
           </pre>
         </div>
