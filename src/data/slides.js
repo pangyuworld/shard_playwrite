@@ -370,7 +370,7 @@ test(<span class="code-string">'新功能回归测试'</span>, <span class="code
     items: [
       { icon: faUsers, role: '全员', text: '自动化登录脚本：一键获取 Token/Cookie，跳过繁琐登录验证。' },
       { icon: faBug, role: 'QA/Dev', text: '线上巡检：定时跑脚本，页面挂了第一时间报警截图。' },
-      { icon: faChartLine, role: 'PO/运营', text: '数据抓取与生成：自动登录后台，下载报表，生成 PDF 发送邮件。' }
+      { icon: faChartLine, role: 'PO/运营', text: '产品数据自动化：定时抓取用户行为数据、转化率报告，自动生成产品分析报告并推送，让产品决策有数据支撑。' }
     ]
   },
   // 10. 结尾
