@@ -76,35 +76,36 @@ const containerVariants = {
 
     // 列表内容组件
     const ContentListSlide = ({ data }) => (
-      <div className="h-full flex flex-col justify-center px-12 md:px-24">
+      <div className="h-full flex flex-col justify-start px-12 md:px-24 py-8">
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
+          className="mb-6"
         >
-          <h2 className="text-4xl font-bold mb-2 text-white drop-shadow-lg">{data.title}</h2>
-          <p className="text-xl text-brand-primary mb-12 font-medium">{data.subtitle}</p>
+          <h2 className="text-3xl font-bold mb-2 text-white drop-shadow-lg">{data.title}</h2>
+          <p className="text-lg text-brand-primary mb-6 font-medium">{data.subtitle}</p>
         </motion.div>
-        <div className="space-y-6">
+        <div className="space-y-2 flex-1 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
           {data.items.map((item, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
               initial="hidden"
               animate="visible"
-              transition={{ delay: index * 0.15 }}
-              className="group flex items-center bg-gradient-to-r from-white/10 to-white/5 p-8 rounded-3xl border-2 border-white/15 hover:border-brand-primary/70 hover:bg-gradient-to-r hover:from-white/15 hover:to-white/8 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-primary/20 hover:scale-[1.03] backdrop-blur-md"
+              transition={{ delay: index * 0.08 }}
+              className="group flex items-center bg-gradient-to-r from-white/10 to-white/5 p-3 rounded-xl border border-white/15 hover:border-brand-primary/70 hover:bg-gradient-to-r hover:from-white/15 hover:to-white/8 transition-all duration-300 hover:shadow-lg hover:shadow-brand-primary/10 hover:scale-[1.005] backdrop-blur-md"
             >
-              <div className="flex-shrink-0 w-20 h-20 rounded-3xl bg-gradient-to-br from-brand-primary/40 to-brand-primary/20 flex items-center justify-center text-brand-primary text-3xl mr-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-2xl border border-brand-primary/20">
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-brand-primary/40 to-brand-primary/20 flex items-center justify-center text-brand-primary text-lg mr-4 group-hover:scale-105 group-hover:rotate-1 transition-all duration-300 shadow-md border border-brand-primary/20">
                 <FontAwesomeIcon icon={item.icon} />
               </div>
-              <div className="flex items-center gap-6 flex-1">
+              <div className="flex items-center gap-3 flex-1 min-w-0">
                 <div className="flex-shrink-0">
-                  <span className="px-5 py-2.5 rounded-2xl text-base font-bold bg-gradient-to-r from-brand-accent/40 to-brand-accent/30 text-white border-2 border-brand-accent/30 whitespace-nowrap shadow-xl backdrop-blur-sm group-hover:scale-105 transition-all duration-300">
+                  <span className="px-2.5 py-1 rounded-lg text-xs font-bold bg-gradient-to-r from-brand-accent/40 to-brand-accent/30 text-white border border-brand-accent/30 whitespace-nowrap shadow-md backdrop-blur-sm group-hover:scale-105 transition-all duration-300">
                     {item.role}
                   </span>
                 </div>
-                <p className="text-xl text-gray-200 leading-relaxed group-hover:text-white transition-colors duration-300 flex-1 font-medium">{item.text}</p>
+                <p className="text-sm text-gray-200 leading-snug group-hover:text-white transition-colors duration-300 flex-1 font-medium">{item.text}</p>
               </div>
             </motion.div>
           ))}
