@@ -164,27 +164,40 @@ export const slides = [
     section: 'Part 3: 核心工具链',
     title: '核心工具一：Codegen 录制',
     tag: 'For Dev & QA',
-    desc: '不想写代码？没关系！打开浏览器点点点，Playwright 自动帮你生成代码。',
-    concept: '所见即所得。在浏览器中的每一次点击、输入，都会实时转化为标准代码。',
-    filename: 'codegen_output.ts',
-    code: `<span class="code-comment"># 启动 Codegen 录制模式</span>
+    desc: '不想写代码？没关系！Playwright 提供了GUI和命令行两种录制方式，满足不同使用习惯。',
+    concept: '所见即所得。无论是图形界面还是命令行，每一次操作都会实时转化为标准代码。',
+    filename: 'codegen_methods.ts',
+    code: `<span class="code-comment">// 方式一：命令行启动 (CMD)</span>
+<span class="code-comment"># 基础录制</span>
 <span class="code-function">npx</span> playwright codegen https://demo.playwright.dev/
 
-<span class="code-comment"># 自动生成的测试代码：</span>
+<span class="code-comment"># 指定浏览器录制</span>
+<span class="code-function">npx</span> playwright codegen --browser=firefox https://example.com
+
+<span class="code-comment"># 指定设备模拟</span>
+<span class="code-function">npx</span> playwright codegen --device="iPhone 13" https://m.example.com
+
+<span class="code-comment"># 指定输出文件</span>
+<span class="code-function">npx</span> playwright codegen --target=javascript -o tests/recorded.spec.js https://example.com
+
+<span class="code-comment">// 方式二：VS Code 插件 (GUI)</span>
+<span class="code-comment">// 1. 安装 Playwright Test for VSCode 插件</span>
+<span class="code-comment">// 2. 打开命令面板 (Ctrl+Shift+P)</span>
+<span class="code-comment">// 3. 输入 "Playwright: Record new test"</span>
+<span class="code-comment">// 4. 选择浏览器和设备，开始录制</span>
+
+<span class="code-comment">// 方式三：Playwright Inspector (GUI)</span>
+<span class="code-function">npx</span> playwright test --debug
+<span class="code-comment">// 在调试模式下点击 "Record" 按钮开始录制</span>
+
+<span class="code-comment">// 自动生成的测试代码示例：</span>
 <span class="code-keyword">import</span> { test, expect } <span class="code-keyword">from</span> <span class="code-string">'@playwright/test'</span>;
 
-test(<span class="code-string">'登录流程测试'</span>, <span class="code-keyword">async</span> ({ page }) => {
-  <span class="code-comment">// 1. 打开页面</span>
+test(<span class="code-string">'录制的登录流程'</span>, <span class="code-keyword">async</span> ({ page }) => {
   <span class="code-keyword">await</span> page.goto(<span class="code-string">'https://demo.playwright.dev/'</span>);
-
-  <span class="code-comment">// 2. 点击登录按钮</span>
   <span class="code-keyword">await</span> page.getByRole(<span class="code-string">'button'</span>, { name: <span class="code-string">'Login'</span> }).click();
-
-  <span class="code-comment">// 3. 填写表单 (录制时自动生成)</span>
   <span class="code-keyword">await</span> page.getByPlaceholder(<span class="code-string">'Username'</span>).fill(<span class="code-string">'admin'</span>);
   <span class="code-keyword">await</span> page.getByPlaceholder(<span class="code-string">'Password'</span>).fill(<span class="code-string">'123456'</span>);
-
-  <span class="code-comment">// 4. 提交并验证结果</span>
   <span class="code-keyword">await</span> page.getByRole(<span class="code-string">'button'</span>, { name: <span class="code-string">'Submit'</span> }).click();
   <span class="code-keyword">await</span> expect(page.getByText(<span class="code-string">'Welcome'</span>)).toBeVisible();
 });`
