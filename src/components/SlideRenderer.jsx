@@ -253,7 +253,7 @@ const FeatureGridSlide = ({ data }) => (
 
 // 代码演示组件
 const CodeDemoSlide = ({ data }) => (
-  <div className="h-full flex flex-col px-6 md:px-12 pt-16 pb-20 gap-3 overflow-hidden">
+  <div className="h-full flex flex-col px-12 md:px-24 pt-16 pb-20 gap-3 overflow-hidden">
     {/* 标题和描述区域 */}
     <motion.div
       className="flex-shrink-0"
