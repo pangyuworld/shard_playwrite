@@ -322,21 +322,12 @@ page.on(<span class="code-string">'console'</span>, msg => console.log(<span cla
     title: '进阶场景二：视觉回归测试',
     desc: '像素级对比。肉眼看不出的 1px 偏移或颜色变化，Playwright 都能精准捕获。拖动滑块查看差异 👇'
   },
-  // 4.5 CI/CD 流水线可视化 (进阶场景)
-  {
-    id: 'ci-pipeline',
-    type: 'ci-pipeline',
-    section: 'Part 5: 进阶场景',
-    title: '进阶场景三：CI/CD 流水线集成',
-    tag: 'DevOps',
-    desc: '从代码提交到测试报告，全自动化流水线让每次发布都有信心保障。Playwright 无缝集成各种 CI/CD 平台。'
-  },
   // 4.6 Dev 痛点解决方案 (进阶场景 - API)
   {
     id: 'dev-solution',
     type: 'code-demo',
     section: 'Part 5: 进阶场景',
-    title: '进阶场景四：API 混合测试',
+    title: '进阶场景三：API 混合测试',
     tag: 'API',
     desc: '改了一行代码不敢上线？QA 追着你要测试数据？Playwright 帮你搞定。',
     concept: 'API 混合模式。利用 API RequestContext 毫秒级造数据，结合 UI 测试实现完整验证。',
@@ -359,6 +350,15 @@ test(<span class="code-string">'新功能回归测试'</span>, <span class="code
   <span class="code-comment">// 💡 API + UI 混合验证，既快又全面！</span>
   <span class="code-comment">// 数据准确性 + 界面正确性 = 完美测试</span>
 });`
+  },
+  // 4.5 CI/CD 流水线可视化 (进阶场景)
+  {
+    id: 'ci-pipeline',
+    type: 'ci-pipeline',
+    section: 'Part 5: 进阶场景',
+    title: '进阶场景四：CI/CD 流水线集成',
+    tag: 'DevOps',
+    desc: '从代码提交到测试报告，全自动化流水线让每次发布都有信心保障。Playwright 无缝集成各种 CI/CD 平台。'
   },
   // 9. 实用场景
   {
