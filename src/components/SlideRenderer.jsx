@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faBug, faCode, faCamera, faNetworkWired, faFileAlt, faCodeBranch, faHammer, faRocket, faCheckCircle, faEnvelope, faServer } from '@fortawesome/free-solid-svg-icons';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const containerVariants = {
       hidden: { opacity: 0, x: 50 },
@@ -15,67 +16,72 @@ const containerVariants = {
     };
 
     // 封面组件
-    const CoverSlide = ({ data }) => (
-      <div className="flex flex-col items-center justify-center h-full text-center px-8 pb-20 relative">
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: "spring", stiffness: 260, damping: 20 }}
-          className="mb-8 text-brand-primary text-8xl drop-shadow-2xl"
-        >
-          <FontAwesomeIcon icon={data.icon} />
-        </motion.div>
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="text-5xl md:text-6xl font-bold mb-4 text-white tracking-tight drop-shadow-lg"
-        >
-          {data.title}
-        </motion.h1>
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-4xl md:text-5xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-brand-primary via-brand-accent to-purple-400 drop-shadow-lg"
-        >
-          {data.highlight}
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.8 }}
-          className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl leading-relaxed"
-        >
-          {data.subtitle}
-        </motion.p>
+    const CoverSlide = ({ data }) => {
+      const { getText, isZh } = useLanguage();
 
-        {/* 分享人信息 */}
-        {data.presenter && (
+      return (
+        <div className="flex flex-col items-center justify-center h-full text-center px-8 pb-20 relative">
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1, duration: 0.6 }}
-            className="mb-8 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full border border-white/20 shadow-xl"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 260, damping: 20 }}
+            className="mb-8 text-brand-primary text-8xl drop-shadow-2xl"
           >
-            <span className="text-brand-accent font-semibold text-lg">分享人：</span>
-            <span className="text-white font-bold text-lg ml-2">{data.presenter}</span>
+            <FontAwesomeIcon icon={data.icon} />
           </motion.div>
-        )}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="text-5xl md:text-6xl font-bold mb-4 text-white tracking-tight drop-shadow-lg"
+          >
+            {getText(data.title)}
+          </motion.h1>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="text-4xl md:text-5xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-brand-primary via-brand-accent to-purple-400 drop-shadow-lg"
+          >
+            {getText(data.highlight)}
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.8 }}
+            className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl leading-relaxed"
+          >
+            {getText(data.subtitle)}
+          </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          className="mt-auto mb-20 text-gray-400 font-medium tracking-widest uppercase text-sm bg-white/5 px-6 py-2 rounded-full backdrop-blur-sm"
-        >
-          {data.footer}
-        </motion.div>
-      </div>
-    );
+          {/* 分享人信息 */}
+          {data.presenter && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1, duration: 0.6 }}
+              className="mb-8 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full border border-white/20 shadow-xl"
+            >
+              <span className="text-brand-accent font-semibold text-lg">{isZh ? '分享人：' : 'Presenter: '}</span>
+              <span className="text-white font-bold text-lg ml-2">{data.presenter}</span>
+            </motion.div>
+          )}
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.8 }}
+            className="mt-auto mb-20 text-gray-400 font-medium tracking-widest uppercase text-sm bg-white/5 px-6 py-2 rounded-full backdrop-blur-sm"
+          >
+            {getText(data.footer)}
+          </motion.div>
+        </div>
+      );
+    };
 
     // 列表内容组件
     const ContentListSlide = ({ data }) => {
+      const { getText } = useLanguage();
       // 判断是否为大纲页面（agenda），大纲页面使用紧凑布局
       const isAgenda = data.id === 'agenda';
       const itemSpacing = isAgenda ? 'space-y-2' : 'space-y-8';
@@ -88,8 +94,8 @@ const containerVariants = {
             transition={{ duration: 0.6 }}
             className="mb-6"
           >
-            <h2 className="text-3xl font-bold mb-2 text-white drop-shadow-lg">{data.title}</h2>
-            <p className="text-lg text-brand-primary mb-6 font-medium">{data.subtitle}</p>
+            <h2 className="text-3xl font-bold mb-2 text-white drop-shadow-lg">{getText(data.title)}</h2>
+            <p className="text-lg text-brand-primary mb-6 font-medium">{getText(data.subtitle)}</p>
           </motion.div>
           <div className={`${itemSpacing} flex-1 max-h-[calc(100vh-200px)] overflow-y-auto pr-2`}>
           {data.items.map((item, index) => (
@@ -110,7 +116,7 @@ const containerVariants = {
                     {item.role}
                   </span>
                 </div>
-                <p className="text-sm text-gray-200 leading-snug group-hover:text-white transition-colors duration-300 flex-1 font-medium">{item.text}</p>
+                <p className="text-sm text-gray-200 leading-snug group-hover:text-white transition-colors duration-300 flex-1 font-medium">{getText(item.text)}</p>
               </div>
             </motion.div>
           ))}
@@ -657,6 +663,8 @@ const CIPipelineSlide = ({ data }) => {
 };
 
     export const SlideRenderer = ({ slide }) => {
+      const { getText } = useLanguage();
+
       const renderContent = () => {
         switch (slide.type) {
           case 'cover': return <CoverSlide data={slide} />;
@@ -686,7 +694,7 @@ const CIPipelineSlide = ({ data }) => {
             <div className="absolute top-0 left-12 md:left-24 py-2 px-6 bg-white/5 backdrop-blur-md rounded-b-xl border-x border-b border-white/10 z-20 shadow-lg">
               <span className="text-brand-primary font-bold text-sm tracking-widest uppercase flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-brand-primary"></span>
-                {slide.section}
+                {getText(slide.section)}
               </span>
             </div>
           )}

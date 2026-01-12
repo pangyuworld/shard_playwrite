@@ -5,10 +5,22 @@ export const slides = [
   {
     id: 'cover',
     type: 'cover',
-    title: 'Playwright',
-    highlight: '自动化"效率神器"',
-    subtitle: '想让自动化测试不再是 QA 专属？打破壁垒，全链路提升协作速度！',
-    footer: 'Dev · QA · PO 协作共赢',
+    title: {
+      zh: 'Playwright',
+      en: 'Playwright'
+    },
+    highlight: {
+      zh: '自动化"效率神器"',
+      en: 'Automation "Efficiency Tool"'
+    },
+    subtitle: {
+      zh: '想让自动化测试不再是 QA 专属？打破壁垒，全链路提升协作速度！',
+      en: 'Want to make automated testing not just for QA? Break barriers and boost collaboration speed across the entire pipeline!'
+    },
+    footer: {
+      zh: 'Dev · QA · PO 协作共赢',
+      en: 'Dev · QA · PO Collaboration'
+    },
     presenter: 'Bai, Menghan',
     icon: faRocket
   },
@@ -16,27 +28,42 @@ export const slides = [
   {
     id: 'agenda',
     type: 'content-list',
-    title: '本次分享大纲',
-    subtitle: '从入门到精通的效率之旅',
+    title: {
+      zh: '本次分享大纲',
+      en: 'Presentation Agenda'
+    },
+    subtitle: {
+      zh: '从入门到精通的效率之旅',
+      en: 'Journey from Beginner to Expert'
+    },
     items: [
-      { icon: faLayerGroup, role: 'Part 1', text: 'Playwright 简介：定义、痛点与核心价值' },
-      { icon: faBolt, role: 'Part 2', text: '快速上手：初始化项目、核心对象模型与稳定性机制' },
-      { icon: faCode, role: 'Part 3', text: '核心工具链：Codegen、Trace Viewer 与调试技巧' },
-      { icon: faChartBar, role: 'Part 4', text: '测试报告：内置 HTML 报告与 Allure 企业级报告集成' },
-      { icon: faRocket, role: 'Part 5', text: '进阶场景：Mock、视觉回归与 CI/CD' }
+      { icon: faLayerGroup, role: 'Part 1', text: { zh: 'Playwright 简介：定义、痛点与核心价值', en: 'Playwright Introduction: Definition, Pain Points & Core Value' } },
+      { icon: faBolt, role: 'Part 2', text: { zh: '快速上手：初始化项目、核心对象模型与稳定性机制', en: 'Quick Start: Project Setup, Core Object Model & Stability' } },
+      { icon: faCode, role: 'Part 3', text: { zh: '核心工具链：Codegen、Trace Viewer 与调试技巧', en: 'Core Tools: Codegen, Trace Viewer & Debugging Tips' } },
+      { icon: faChartBar, role: 'Part 4', text: { zh: '测试报告：内置 HTML 报告与 Allure 企业级报告集成', en: 'Test Reports: Built-in HTML & Allure Enterprise Integration' } },
+      { icon: faRocket, role: 'Part 5', text: { zh: '进阶场景：Mock、视觉回归与 CI/CD', en: 'Advanced Scenarios: Mock, Visual Regression & CI/CD' } }
     ]
   },
   // 2. 痛点
   {
     id: 'intro-pain',
     type: 'content-list',
-    section: 'Part 1: Playwright 简介',
-    title: '为什么要懂 Playwright？',
-    subtitle: '痛点共鸣：那些让我们头秃的“重复活”',
+    section: {
+      zh: 'Part 1: Playwright 简介',
+      en: 'Part 1: Playwright Introduction'
+    },
+    title: {
+      zh: '为什么要懂 Playwright？',
+      en: 'Why Learn Playwright?'
+    },
+    subtitle: {
+      zh: '痛点共鸣：那些让我们头秃的"重复活"',
+      en: 'Pain Points: Those Repetitive Tasks That Drive Us Crazy'
+    },
     items: [
-      { icon: faCode, role: 'Dev', text: '改个小功能，却要手动跑一遍全流程回归，甚至还要帮 QA 造数据？' },
-      { icon: faBug, role: 'QA', text: 'UI 自动化脚本极其不稳定，维护脚本的时间比写脚本还长？' },
-      { icon: faChartLine, role: 'PO', text: '想看产品验收结果，只能等口头汇报或复杂的 Excel，没有直观感受？' }
+      { icon: faCode, role: 'Dev', text: { zh: '改个小功能，却要手动跑一遍全流程回归，甚至还要帮 QA 造数据？', en: 'Made a small feature change, but need to manually run full regression tests, even help QA create test data?' } },
+      { icon: faBug, role: 'QA', text: { zh: 'UI 自动化脚本极其不稳定，维护脚本的时间比写脚本还长？', en: 'UI automation scripts are extremely unstable, spending more time maintaining than writing them?' } },
+      { icon: faChartLine, role: 'PO', text: { zh: '想看产品验收结果，只能等口头汇报或复杂的 Excel，没有直观感受？', en: 'Want to see product acceptance results, but can only wait for verbal reports or complex Excel sheets?' } }
     ]
   },
   // 2.5 Playwright 介绍 (新增)
@@ -377,10 +404,22 @@ test(<span class="code-string">'新功能回归测试'</span>, <span class="code
   {
     id: 'end',
     type: 'cover',
-    title: 'Let\'s Automate!',
-    highlight: '解锁效率神器',
-    subtitle: 'Playwright 让每个人都能成为自动化专家',
-    footer: 'Q & A 环节',
+    title: {
+      zh: 'Let\'s Automate!',
+      en: 'Let\'s Automate!'
+    },
+    highlight: {
+      zh: '解锁效率神器',
+      en: 'Unlock Efficiency Tools'
+    },
+    subtitle: {
+      zh: 'Playwright 让每个人都能成为自动化专家',
+      en: 'Playwright makes everyone an automation expert'
+    },
+    footer: {
+      zh: 'Q & A 环节',
+      en: 'Q & A Session'
+    },
     icon: faCheckCircle
   }
 ];

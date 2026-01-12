@@ -4,9 +4,13 @@ import React, { useState, useEffect } from 'react';
     import { faChevronLeft, faChevronRight, faExpand } from '@fortawesome/free-solid-svg-icons';
     import { slides } from '../data/slides';
     import { SlideRenderer } from './SlideRenderer';
+    import LanguageToggle from './LanguageToggle';
+    import SlideNavigation from './SlideNavigation';
+    import { useLanguage } from '../contexts/LanguageContext';
 
     const Presentation = () => {
       const [currentSlide, setCurrentSlide] = useState(0);
+      const { isZh } = useLanguage();
 
       const nextSlide = () => {
         if (currentSlide < slides.length - 1) {
@@ -17,6 +21,12 @@ import React, { useState, useEffect } from 'react';
       const prevSlide = () => {
         if (currentSlide > 0) {
           setCurrentSlide(prev => prev - 1);
+        }
+      };
+
+      const goToSlide = (index) => {
+        if (index >= 0 && index < slides.length) {
+          setCurrentSlide(index);
         }
       };
 
@@ -71,32 +81,41 @@ import React, { useState, useEffect } from 'react';
                 </div>
               </div>
 
-              {/* Navigation Controls */}
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={prevSlide}
-                  disabled={currentSlide === 0}
-                  className="group relative p-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-brand-primary/20 border border-white/20 hover:border-brand-primary/50"
-                >
-                  <FontAwesomeIcon icon={faChevronLeft} className="text-lg group-hover:scale-110 transition-transform duration-200" />
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-brand-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </button>
+              {/* Slide Navigation */}
+              <div className="flex items-center gap-4">
+                <SlideNavigation
+                  currentSlide={currentSlide}
+                  onSlideChange={goToSlide}
+                />
 
-                <button
-                  onClick={nextSlide}
-                  disabled={currentSlide === slides.length - 1}
-                  className="group relative p-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-brand-primary/20 border border-white/20 hover:border-brand-primary/50"
-                >
-                  <FontAwesomeIcon icon={faChevronRight} className="text-lg group-hover:scale-110 transition-transform duration-200" />
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-l from-brand-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </button>
+                {/* Navigation Controls */}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={prevSlide}
+                    disabled={currentSlide === 0}
+                    className="group relative p-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-brand-primary/20 border border-white/20 hover:border-brand-primary/50"
+                  >
+                    <FontAwesomeIcon icon={faChevronLeft} className="text-lg group-hover:scale-110 transition-transform duration-200" />
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-brand-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </button>
+
+                  <button
+                    onClick={nextSlide}
+                    disabled={currentSlide === slides.length - 1}
+                    className="group relative p-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-brand-primary/20 border border-white/20 hover:border-brand-primary/50"
+                  >
+                    <FontAwesomeIcon icon={faChevronRight} className="text-lg group-hover:scale-110 transition-transform duration-200" />
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-l from-brand-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </button>
+                </div>
               </div>
 
-              {/* Progress Info & Fullscreen */}
+              {/* Language Toggle & Fullscreen */}
               <div className="flex items-center gap-3">
                 <div className="hidden md:flex items-center gap-2 text-xs text-white/60">
-                  <span>使用 ← → 或空格键导航</span>
+                  <span>{isZh ? '使用 ← → 或空格键导航' : 'Use ← → or Space to navigate'}</span>
                 </div>
+                <LanguageToggle />
                 <button
                   onClick={() => {
                     if (document.fullscreenElement) {
