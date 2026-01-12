@@ -617,7 +617,7 @@ page.on(<span class="code-string">'console'</span>, msg => console.log(<span cla
     filename: 'playwright.config.ts',
     code: {
       zh: `<span class="code-comment">// 1. 安装 Allure 依赖（需要同时安装 CLI 工具）</span>
-<span class="code-function">npm</span> install -D allure-playwright @allure/cli
+<span class="code-function">npm</span> install -D allure-playwright allure-commandline
 
 <span class="code-comment">// 2. 配置 playwright.config.ts</span>
 <span class="code-keyword">import</span> { defineConfig } <span class="code-keyword">from</span> <span class="code-string">'@playwright/test'</span>;
@@ -645,7 +645,7 @@ page.on(<span class="code-string">'console'</span>, msg => console.log(<span cla
 <span class="code-comment">//   "test:allure": "playwright test && allure generate ./allure-results -o ./allure-report --clean"</span>
 <span class="code-comment">// }</span>`,
       en: `<span class="code-comment">// 1. Install Allure dependencies (CLI tools required)</span>
-<span class="code-function">npm</span> install -D allure-playwright @allure/cli
+<span class="code-function">npm</span> install -D allure-playwright allure-commandline
 
 <span class="code-comment">// 2. Configure playwright.config.ts</span>
 <span class="code-keyword">import</span> { defineConfig } <span class="code-keyword">from</span> <span class="code-string">'@playwright/test'</span>;
