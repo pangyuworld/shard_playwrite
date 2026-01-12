@@ -329,7 +329,7 @@ const CodeDemoSlide = ({ data }) => {
           </div>
           <div className="flex-1 overflow-auto p-4 md:p-6 bg-gradient-to-br from-[#282c34] to-[#2c323c]">
             <pre className="font-mono text-xs leading-5 text-gray-300 whitespace-pre-wrap">
-              <code dangerouslySetInnerHTML={{ __html: data.code }} />
+              <code dangerouslySetInnerHTML={{ __html: getText(data.code) }} />
             </pre>
           </div>
         </div>
@@ -440,12 +440,12 @@ const MockDemoSlide = ({ data }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Code Side */}
         <div className="bg-[#282c34] p-6 rounded-xl border border-white/10 font-mono text-sm text-gray-300 shadow-xl">
-          <div className="mb-2 text-gray-500">// Intercept /api/user endpoint</div>
+          <div className="mb-2 text-gray-500">{isZh ? '// 拦截 /api/user 接口' : '// Intercept /api/user endpoint'}</div>
           <div className={`${step >= 1 ? 'bg-brand-primary/20 -mx-2 px-2 rounded' : ''} transition-colors duration-300`}>
             <span className="text-purple-400">await</span> page.route(<span className="text-green-400">'**/api/user'</span>, route ={'>'} {'{'}
           </div>
           <div className={`pl-4 ${step === 2 ? 'bg-brand-primary/20 -mx-2 px-2 rounded' : ''} transition-colors duration-300`}>
-            <span className="text-gray-500">// Return mock data directly, no real request sent</span>
+            <span className="text-gray-500">{isZh ? '// 直接返回 Mock 数据，不发送真实请求' : '// Return mock data directly, no real request sent'}</span>
           </div>
           <div className={`pl-4 ${step === 2 ? 'bg-brand-primary/20 -mx-2 px-2 rounded' : ''} transition-colors duration-300`}>
             <span className="text-purple-400">await</span> route.fulfill({'{'}

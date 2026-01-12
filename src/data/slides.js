@@ -181,7 +181,19 @@ export const slides = [
       en: 'Scaffolding. Automatically creates config files, installs browser drivers, and generates sample tests.'
     },
     filename: 'Terminal',
-    code: `<span class="code-comment"># 1. Initialize project</span>
+    code: {
+      zh: `<span class="code-comment"># 1. 初始化项目</span>
+<span class="code-function">npm</span> init playwright@latest
+
+<span class="code-comment"># 2. 交互式配置</span>
+<span class="code-string">✔</span> Do you want to use TypeScript or JavaScript? · <span class="code-keyword">TypeScript</span>
+<span class="code-string">✔</span> Where to put your end-to-end tests? · <span class="code-string">tests</span>
+<span class="code-string">✔</span> Add a GitHub Actions workflow? · <span class="code-keyword">true</span>
+<span class="code-string">✔</span> Install Playwright browsers? · <span class="code-keyword">true</span>
+
+<span class="code-comment"># 3. 运行测试</span>
+<span class="code-function">npx</span> playwright test`,
+      en: `<span class="code-comment"># 1. Initialize project</span>
 <span class="code-function">npm</span> init playwright@latest
 
 <span class="code-comment"># 2. Interactive configuration</span>
@@ -192,6 +204,7 @@ export const slides = [
 
 <span class="code-comment"># 3. Run tests</span>
 <span class="code-function">npx</span> playwright test`
+    }
   },
   // 3.6 核心对象 (新增)
   {
@@ -257,7 +270,20 @@ export const slides = [
       en: 'Auto-wait. Before executing clicks, Playwright automatically ensures elements are visible, clickable, and animations have stopped.'
     },
     filename: 'no_more_sleep.ts',
-    code: `<span class="code-comment">// ❌ Old approach (Selenium/Puppeteer)</span>
+    code: {
+      zh: `<span class="code-comment">// ❌ 以前的做法 (Selenium/Puppeteer)</span>
+<span class="code-keyword">await</span> driver.sleep(<span class="code-number">5000</span>); <span class="code-comment">// 死等，浪费时间</span>
+<span class="code-keyword">await</span> driver.findElement(By.id(<span class="code-string">'submit'</span>)).click();
+
+<span class="code-comment">// ✅ Playwright 的做法</span>
+<span class="code-comment">// 不需要 sleep！它会自动等待元素准备好</span>
+<span class="code-keyword">await</span> page.getByRole(<span class="code-string">'button'</span>, { name: <span class="code-string">'Submit'</span> }).click();
+
+<span class="code-comment">// 甚至可以自定义等待状态</span>
+<span class="code-keyword">await</span> expect(page.getByTestId(<span class="code-string">'status'</span>)).toHaveText(<span class="code-string">'Success'</span>, {
+  timeout: <span class="code-number">10000</span> <span class="code-comment">// 智能超时控制</span>
+});`,
+      en: `<span class="code-comment">// ❌ Old approach (Selenium/Puppeteer)</span>
 <span class="code-keyword">await</span> driver.sleep(<span class="code-number">5000</span>); <span class="code-comment">// Hard wait, waste of time</span>
 <span class="code-keyword">await</span> driver.findElement(By.id(<span class="code-string">'submit'</span>)).click();
 
@@ -269,6 +295,7 @@ export const slides = [
 <span class="code-keyword">await</span> expect(page.getByTestId(<span class="code-string">'status'</span>)).toHaveText(<span class="code-string">'Success'</span>, {
   timeout: <span class="code-number">10000</span> <span class="code-comment">// Smart timeout control</span>
 });`
+    }
   },
   // 4. Codegen 演示 - 第一部分：命令行方式
   {
@@ -295,7 +322,25 @@ export const slides = [
       en: 'Command line recording. Control browser type, device simulation, output format through different parameters, flexible and efficient.'
     },
     filename: 'terminal_codegen.sh',
-    code: `<span class="code-comment"># Basic recording - simplest approach</span>
+    code: {
+      zh: `<span class="code-comment"># 基础录制 - 最简单的方式</span>
+<span class="code-function">npx</span> playwright codegen https://demo.playwright.dev/
+
+<span class="code-comment"># 指定浏览器录制</span>
+<span class="code-function">npx</span> playwright codegen --browser=firefox https://example.com
+
+<span class="code-comment"># 移动端设备模拟</span>
+<span class="code-function">npx</span> playwright codegen --device="iPhone 13" https://m.example.com
+
+<span class="code-comment"># 指定输出文件和语言</span>
+<span class="code-function">npx</span> playwright codegen --target=javascript -o tests/login.spec.js https://example.com
+
+<span class="code-comment"># 高级参数组合示例</span>
+<span class="code-function">npx</span> playwright codegen --browser=chromium --device="iPhone 12" --output=tests/mobile.spec.ts https://m.example.com
+
+<span class="code-comment"># 录制时保存用户数据</span>
+<span class="code-function">npx</span> playwright codegen --save-storage=auth.json https://example.com`,
+      en: `<span class="code-comment"># Basic recording - simplest approach</span>
 <span class="code-function">npx</span> playwright codegen https://demo.playwright.dev/
 
 <span class="code-comment"># Specify browser for recording</span>
@@ -312,6 +357,7 @@ export const slides = [
 
 <span class="code-comment"># Save user data during recording</span>
 <span class="code-function">npx</span> playwright codegen --save-storage=auth.json https://example.com`
+    }
   },
   // 4.2 Codegen 演示 - 第二部分：GUI方式
   {
@@ -439,7 +485,29 @@ export const slides = [
       en: 'Multi-dimensional debugging. From code breakpoints to visual tracing, from console output to screen recording playback, comprehensive problem troubleshooting.'
     },
     filename: 'debug_techniques.ts',
-    code: `<span class="code-comment">// 1. Enable debug mode</span>
+    code: {
+      zh: `<span class="code-comment">// 1. 开启调试模式</span>
+<span class="code-function">npx</span> playwright test --debug
+
+<span class="code-comment">// 2. 代码中添加断点</span>
+<span class="code-keyword">await</span> page.pause(); <span class="code-comment">// 暂停执行，打开调试器</span>
+
+<span class="code-comment">// 3. 慢动作模式 (便于观察)</span>
+<span class="code-keyword">const</span> browser = <span class="code-keyword">await</span> chromium.launch({
+  slowMo: <span class="code-number">1000</span> <span class="code-comment">// 每个操作间隔1秒</span>
+});
+
+<span class="code-comment">// 4. 截图调试</span>
+<span class="code-keyword">await</span> page.screenshot({ path: <span class="code-string">'debug.png'</span> });
+
+<span class="code-comment">// 5. 控制台输出调试</span>
+page.on(<span class="code-string">'console'</span>, msg => console.log(<span class="code-string">'PAGE LOG:'</span>, msg.text()));
+
+<span class="code-comment">// 6. 生成 Trace 文件</span>
+<span class="code-keyword">await</span> context.tracing.start({ screenshots: <span class="code-keyword">true</span>, snapshots: <span class="code-keyword">true</span> });
+<span class="code-comment">// ... 测试代码 ...</span>
+<span class="code-keyword">await</span> context.tracing.stop({ path: <span class="code-string">'trace.zip'</span> });`,
+      en: `<span class="code-comment">// 1. Enable debug mode</span>
 <span class="code-function">npx</span> playwright test --debug
 
 <span class="code-comment">// 2. Add breakpoint in code</span>
@@ -459,7 +527,8 @@ page.on(<span class="code-string">'console'</span>, msg => console.log(<span cla
 <span class="code-comment">// 6. Generate Trace file</span>
 <span class="code-keyword">await</span> context.tracing.start({ screenshots: <span class="code-keyword">true</span>, snapshots: <span class="code-keyword">true</span> });
 <span class="code-comment">// ... test code ...</span>
-<span class="code-keyword">await</span> context.tracing.stop({ path: <span class="code-string">'trace.zip'</span> });</span>`
+<span class="code-keyword">await</span> context.tracing.stop({ path: <span class="code-string">'trace.zip'</span> });`
+    }
   },
   // 新增：Playwright 内置报告 (移动到 Part 4)
   {
@@ -546,7 +615,36 @@ page.on(<span class="code-string">'console'</span>, msg => console.log(<span cla
       en: 'Allure integration. Seamlessly integrate Allure reporting system through @playwright/test reporter configuration for professional-grade test analysis capabilities.'
     },
     filename: 'playwright.config.ts',
-    code: `<span class="code-comment">// 1. Install Allure dependencies (CLI tools required)</span>
+    code: {
+      zh: `<span class="code-comment">// 1. 安装 Allure 依赖（需要同时安装 CLI 工具）</span>
+<span class="code-function">npm</span> install -D allure-playwright @allure/cli
+
+<span class="code-comment">// 2. 配置 playwright.config.ts</span>
+<span class="code-keyword">import</span> { defineConfig } <span class="code-keyword">from</span> <span class="code-string">'@playwright/test'</span>;
+
+<span class="code-keyword">export default</span> defineConfig({
+  reporter: [
+    [<span class="code-string">'html'</span>], <span class="code-comment">// 保留内置 HTML 报告</span>
+    [<span class="code-string">'allure-playwright'</span>, {
+      outputFolder: <span class="code-string">'allure-results'</span>,
+      suiteTitle: <span class="code-string">'E2E Tests'</span>,
+      detail: <span class="code-keyword">true</span>,
+      outputFolder: <span class="code-string">'./allure-results'</span>
+    }]
+  ],
+  <span class="code-comment">// 其他配置...</span>
+});
+
+<span class="code-comment">// 3. 运行测试并生成报告</span>
+<span class="code-function">npx</span> playwright test
+<span class="code-function">npx</span> allure generate ./allure-results -o ./allure-report --clean
+<span class="code-function">npx</span> allure open ./allure-report
+
+<span class="code-comment">// 4. 或者使用 package.json 脚本简化命令</span>
+<span class="code-comment">// "scripts": {</span>
+<span class="code-comment">//   "test:allure": "playwright test && allure generate ./allure-results -o ./allure-report --clean"</span>
+<span class="code-comment">// }</span>`,
+      en: `<span class="code-comment">// 1. Install Allure dependencies (CLI tools required)</span>
 <span class="code-function">npm</span> install -D allure-playwright @allure/cli
 
 <span class="code-comment">// 2. Configure playwright.config.ts</span>
@@ -574,6 +672,7 @@ page.on(<span class="code-string">'console'</span>, msg => console.log(<span cla
 <span class="code-comment">// "scripts": {</span>
 <span class="code-comment">//   "test:allure": "playwright test && allure generate ./allure-results -o ./allure-report --clean"</span>
 <span class="code-comment">// }</span>`
+    }
   },
   // 8. Mock 数据演示 (进阶场景)
   {
@@ -631,9 +730,28 @@ page.on(<span class="code-string">'console'</span>, msg => console.log(<span cla
       en: 'API hybrid mode. Use API RequestContext for millisecond-level data creation, combined with UI testing for complete verification.'
     },
     filename: 'api_hybrid_test.ts',
-    code: `<span class="code-keyword">import</span> { test, expect } <span class="code-keyword">from</span> <span class="code-string">'@playwright/test'</span>;
+    code: {
+      zh: `<span class="code-keyword">import</span> { test, expect } <span class="code-keyword">from</span> <span class="code-string">'@playwright/test'</span>;
 
 test(<span class="code-string">'新功能回归测试'</span>, <span class="code-keyword">async</span> ({ page, request }) => {
+  <span class="code-comment">// 🚀 痛点解决 1: 极速造数据 (无需手动操作数据库/UI)</span>
+  <span class="code-comment">// 直接调用 API 创建订单，比 UI 操作快 100 倍</span>
+  <span class="code-keyword">const</span> res = <span class="code-keyword">await</span> request.post(<span class="code-string">'/api/create-order'</span>, {
+    data: { product: <span class="code-string">'iPhone 15'</span>, qty: <span class="code-number">1</span> }
+  });
+  <span class="code-keyword">const</span> order = <span class="code-keyword">await</span> res.json();
+
+  <span class="code-comment">// 🚀 痛点解决 2: 自动回归</span>
+  <span class="code-comment">// 拿着造好的数据，直接开始 UI 验证</span>
+  <span class="code-keyword">await</span> page.goto(<span class="code-string">\`/orders/\${order.id}\`</span>);
+  <span class="code-keyword">await</span> expect(page.getByText(<span class="code-string">'待支付'</span>)).toBeVisible();
+
+  <span class="code-comment">// 💡 API + UI 混合验证，既快又全面！</span>
+  <span class="code-comment">// 数据准确性 + 界面正确性 = 完美测试</span>
+});`,
+      en: `<span class="code-keyword">import</span> { test, expect } <span class="code-keyword">from</span> <span class="code-string">'@playwright/test'</span>;
+
+test(<span class="code-string">'New Feature Regression Test'</span>, <span class="code-keyword">async</span> ({ page, request }) => {
   <span class="code-comment">// 🚀 Pain point solution 1: Lightning-fast data creation (no manual DB/UI operations)</span>
   <span class="code-comment">// Direct API calls to create orders, 100x faster than UI operations</span>
   <span class="code-keyword">const</span> res = <span class="code-keyword">await</span> request.post(<span class="code-string">'/api/create-order'</span>, {
@@ -644,11 +762,12 @@ test(<span class="code-string">'新功能回归测试'</span>, <span class="code
   <span class="code-comment">// 🚀 Pain point solution 2: Automated regression</span>
   <span class="code-comment">// Use the created data to start UI validation directly</span>
   <span class="code-keyword">await</span> page.goto(<span class="code-string">\`/orders/\${order.id}\`</span>);
-  <span class="code-keyword">await</span> expect(page.getByText(<span class="code-string">'待支付'</span>)).toBeVisible();
+  <span class="code-keyword">await</span> expect(page.getByText(<span class="code-string">'Pending Payment'</span>)).toBeVisible();
 
   <span class="code-comment">// 💡 API + UI hybrid validation, fast and comprehensive!</span>
   <span class="code-comment">// Data accuracy + UI correctness = Perfect testing</span>
 });`
+    }
   },
   // 4.5 CI/CD 流水线可视化 (进阶场景)
   {
