@@ -143,7 +143,7 @@ const SplitSlide = ({ data }) => {
           {getText(data.leftContent.text)}
         </p>
         <div className="flex flex-wrap gap-3">
-          {data.leftContent.tags.map((tag, i) => (
+          {(Array.isArray(data.leftContent.tags) ? data.leftContent.tags : getText(data.leftContent.tags) || []).map((tag, i) => (
             <motion.span
               key={i}
               initial={{ opacity: 0, scale: 0.8 }}
@@ -151,7 +151,7 @@ const SplitSlide = ({ data }) => {
               transition={{ delay: i * 0.1 + 0.5 }}
               className="px-4 py-2 bg-gradient-to-r from-white/15 to-white/5 rounded-xl text-sm font-medium text-white border border-white/10 hover:border-brand-primary/50 transition-all duration-300 hover:scale-105 shadow-lg"
             >
-              {getText(tag)}
+              {Array.isArray(data.leftContent.tags) ? tag : tag}
             </motion.span>
           ))}
         </div>
