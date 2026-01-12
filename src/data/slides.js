@@ -70,20 +70,50 @@ export const slides = [
   {
     id: 'intro-definition',
     type: 'split',
-    section: 'Part 1: Playwright 简介',
-    title: '什么是 Playwright？',
+    section: {
+      zh: 'Part 1: Playwright 简介',
+      en: 'Part 1: Playwright Introduction'
+    },
+    title: {
+      zh: '什么是 Playwright？',
+      en: 'What is Playwright?'
+    },
     leftContent: {
-      heading: '微软开源的新一代自动化测试工具',
-      text: 'Playwright 是一个用于 Web 测试和自动化的框架，专为现代 Web 应用而生。它允许通过单个 API 自动执行 Chromium、Firefox 和 WebKit，支持无头（Headless）和有头（Headed）模式。',
-      tags: ['跨浏览器', '跨平台', '多语言支持 (JS/TS/Py/Java/C#)', '速度极快']
+      heading: {
+        zh: '微软开源的新一代自动化测试工具',
+        en: 'Microsoft\'s Open Source Next-Gen Automation Testing Tool'
+      },
+      text: {
+        zh: 'Playwright 是一个用于 Web 测试和自动化的框架，专为现代 Web 应用而生。它允许通过单个 API 自动执行 Chromium、Firefox 和 WebKit，支持无头（Headless）和有头（Headed）模式。',
+        en: 'Playwright is a framework for Web testing and automation, built for modern Web applications. It enables automated execution of Chromium, Firefox, and WebKit through a single API, supporting both headless and headed modes.'
+      },
+      tags: {
+        zh: ['跨浏览器', '跨平台', '多语言支持 (JS/TS/Py/Java/C#)', '速度极快'],
+        en: ['Cross-browser', 'Cross-platform', 'Multi-language (JS/TS/Py/Java/C#)', 'Lightning Fast']
+      }
     },
     rightContent: {
       icon: faRobot,
       stats: [
         { label: 'GitHub Stars', value: '60k+' },
         { label: 'NPM Downloads', value: '5M+/week' },
-        { label: '更新频率', value: '每2周' },
-        { label: '维护者', value: 'Microsoft' }
+        {
+          label: {
+            zh: '更新频率',
+            en: 'Update Frequency'
+          },
+          value: {
+            zh: '每2周',
+            en: 'Every 2 weeks'
+          }
+        },
+        {
+          label: {
+            zh: '维护者',
+            en: 'Maintainer'
+          },
+          value: 'Microsoft'
+        }
       ]
     }
   },

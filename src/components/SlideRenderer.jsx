@@ -15,7 +15,7 @@ const itemVariants = {
   visible: { opacity: 1, y: 0 }
 };
 
-// 封面组件
+// Cover component
 const CoverSlide = ({ data }) => {
   const { getText, isZh } = useLanguage();
   
@@ -79,10 +79,10 @@ const CoverSlide = ({ data }) => {
   );
 };
 
-// 列表内容组件
+// List content component
 const ContentListSlide = ({ data }) => {
   const { getText } = useLanguage();
-  // 判断是否为大纲页面（agenda），大纲页面使用紧凑布局
+  // Check if it's agenda page, agenda page uses compact layout
   const isAgenda = data.id === 'agenda';
   const itemSpacing = isAgenda ? 'space-y-2' : 'space-y-8';
 
@@ -125,7 +125,7 @@ const ContentListSlide = ({ data }) => {
   );
 };
 
-// 左右分栏组件
+// Split layout component
 const SplitSlide = ({ data }) => {
   const { getText } = useLanguage();
   
@@ -191,7 +191,7 @@ const SplitSlide = ({ data }) => {
   );
 };
 
-// 卡片组件
+// Cards component
 const CardsSlide = ({ data }) => {
   const { getText } = useLanguage();
   
@@ -230,7 +230,7 @@ const CardsSlide = ({ data }) => {
   );
 };
 
-// 特性网格组件
+// Feature grid component
 const FeatureGridSlide = ({ data }) => {
   const { getText } = useLanguage();
   
@@ -269,7 +269,7 @@ const FeatureGridSlide = ({ data }) => {
   );
 };
 
-// 代码演示组件
+// Code demo component
 const CodeDemoSlide = ({ data }) => {
   const { getText, isZh } = useLanguage();
   
@@ -338,7 +338,7 @@ const CodeDemoSlide = ({ data }) => {
   );
 };
 
-// 视觉回归对比组件
+// Visual regression comparison component
 const VisualCompareSlide = ({ data }) => {
   const { getText, isZh } = useLanguage();
   const [sliderPosition, setSliderPosition] = useState(50);
@@ -420,7 +420,7 @@ const VisualCompareSlide = ({ data }) => {
   );
 };
 
-// Mock 演示组件
+// Mock demo component
 const MockDemoSlide = ({ data }) => {
   const { getText, isZh } = useLanguage();
   const [step, setStep] = useState(0);
@@ -440,12 +440,12 @@ const MockDemoSlide = ({ data }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Code Side */}
         <div className="bg-[#282c34] p-6 rounded-xl border border-white/10 font-mono text-sm text-gray-300 shadow-xl">
-          <div className="mb-2 text-gray-500">// 拦截 /api/user 接口</div>
+          <div className="mb-2 text-gray-500">// Intercept /api/user endpoint</div>
           <div className={`${step >= 1 ? 'bg-brand-primary/20 -mx-2 px-2 rounded' : ''} transition-colors duration-300`}>
             <span className="text-purple-400">await</span> page.route(<span className="text-green-400">'**/api/user'</span>, route ={'>'} {'{'}
           </div>
           <div className={`pl-4 ${step === 2 ? 'bg-brand-primary/20 -mx-2 px-2 rounded' : ''} transition-colors duration-300`}>
-            <span className="text-gray-500">// 直接返回 Mock 数据，不发送真实请求</span>
+            <span className="text-gray-500">// Return mock data directly, no real request sent</span>
           </div>
           <div className={`pl-4 ${step === 2 ? 'bg-brand-primary/20 -mx-2 px-2 rounded' : ''} transition-colors duration-300`}>
             <span className="text-purple-400">await</span> route.fulfill({'{'}
@@ -532,7 +532,7 @@ const MockDemoSlide = ({ data }) => {
   );
 };
 
-// CI/CD 流水线组件
+// CI/CD pipeline component
 const CIPipelineSlide = ({ data }) => {
   const { getText, isZh } = useLanguage();
   const [activeStep, setActiveStep] = useState(0);
